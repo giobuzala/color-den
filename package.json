@@ -12,6 +12,7 @@
         "start:dev": "sirv docs --single --dev"
     },
     "dependencies": {
+        "@vercel/analytics": "^1.6.1",
         "chroma-js": "^2.0.4",
         "d3-array": "^2.2.0",
         "d3-scale": "^3.0.0",
