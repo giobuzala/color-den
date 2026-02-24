@@ -58,7 +58,7 @@ async function handleApiChat(body, res) {
 
     const payload = {
         model: 'gpt-4o-mini',
-        temperature: 1,
+        temperature: 0.5,
         messages: [
             { role: 'system', content: systemPrompt },
             ...messages.filter(m => m.role === 'user' || m.role === 'assistant')
