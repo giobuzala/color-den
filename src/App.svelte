@@ -35,7 +35,9 @@
         correctLightness ? 1 : 0,
         bezier ? 1 : 0
     ].join('|');
-    $: hash = encodeURIComponent(hashRaw);
+    // Encode only the pipe separators to keep URLs readable and widely clickable.
+    // Some apps/browsers choke on raw `|` characters even inside the hash fragment.
+    $: hash = hashRaw.replace(/\|/g, '%7C');
     $: hashHref = `#/${hash}`;
 
     const isMac = navigator.platform.toUpperCase().includes('MAC');
@@ -58,12 +60,17 @@
 
     function readStateFromHash() {
         const raw = window.location.hash.startsWith('#/') ? window.location.hash.substr(2) : '';
+        // Be tolerant of percent-encoding (and occasional double-encoding) so shared links work
+        // across chat apps and browsers.
         let decoded = raw;
-        try {
-            decoded = decodeURIComponent(raw);
-        } catch (e) {
-            decoded = raw;
+        for (let i = 0; i < 2; i++) {
+            try {
+                decoded = decodeURIComponent(decoded);
+            } catch (e) {
+                break;
+            }
         }
+        decoded = decoded.replace(/%7C/gi, '|');
         const parts = decoded.split('|');
         if (parts.length === 6) {
             numColors = +parts[0];
@@ -73,8 +80,6 @@
             colors2 = parts[3] !== '' ? parts[3].split(',').map(c => c && chroma(c)) : [];
             correctLightness = parts[4] === '1';
             bezier = parts[5] === '1';
-        } else {
-            window.location.hash = '';
         }
     }
 
