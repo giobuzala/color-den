@@ -4,7 +4,6 @@
     $: result = colorBlindCheck(colors);
 
     export let colors = [];
-    export let result = [];
     export let active = 'none';
 
     const types = ['none', 'deuteranopia', 'protanopia', 'tritanopia'];
@@ -95,15 +94,14 @@
             {#each types as type}
                 <label
                     class="seg-btn"
-                    class:danger={result.indexOf(type) > -1}
+                    class:danger={result.includes(type)}
                     class:active={active === type}>
                     <input
                         bind:group={active}
                         value={type}
                         type="radio"
                         name="cbSim"
-                        autocomplete="off"
-                        checked={active === type} />
+                        autocomplete="off" />
                     {type === 'none' ? 'normal' : type.substr(0, 4) + '.'}
                 </label>
             {/each}

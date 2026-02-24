@@ -20,7 +20,7 @@
 
     // mode: 0=lightness, 1=chroma/saturation, 2=hue (from LCH)
     $: values = steps.map(c => chroma(c).lch()[mode]);
-    $: values2 = values.concat(values[values.length-1]);
+    $: values2 = values.length ? values.concat(values[values.length - 1]) : [];
 
     $: xScale = scaleLinear()
         .domain([0, steps.length])
@@ -43,13 +43,11 @@
         .nice()
         .rangeRound([height - padding.bottom, padding.top]);
 
-    $: y0 = yScale.domain()[0];
-    $: y1 = yScale.domain()[1];
-
-    $: lineGen = line().x((v,i) => xScale(i)).y(yScale).curve(curveStepAfter);
+    $: lineGen = line()
+        .x((v, i) => xScale(i))
+        .y(yScale)
+        .curve(curveStepAfter);
     $: path = lineGen(values2);
-
-
 </script>
 
 <style>
@@ -85,15 +83,18 @@
     <svg height={height || 50}>
         {#if values.length}
             {#each yScale.ticks(6) as y}
-            <text x="{padding.left-5}" y="{yScale(y)}">{y}</text>
-            <line x1="{padding.left}" x2="{width-padding.right}" transform="translate(0,{yScale(y)})" />
+                <text x="{padding.left - 5}" y="{yScale(y)}">{y}</text>
+                <line
+                    x1={padding.left}
+                    x2={width - padding.right}
+                    transform="translate(0,{yScale(y)})" />
             {/each}
             <line
                 class="direct"
-                x1="{padding.left}"
-                x2="{width-padding.right}"
-                y1="{yScale(values[0])}"
-                y2="{yScale(values[values.length-1])}" />
+                x1={padding.left}
+                x2={width - padding.right}
+                y1={yScale(values[0])}
+                y2={yScale(values[values.length - 1])} />
             <path d={path} />
         {/if}
     </svg>

@@ -1,6 +1,12 @@
 /**
  * Serverless proxy for OpenAI chat. Keeps OPENAI_API_KEY on the server.
- * Used when deployed (e.g. Vercel). For local dev, use server.js instead.
+ * Used when deployed (e.g. Vercel). For local dev, use server.js.
+ *
+ * Request body:
+ * { messages: [{ role, content }, ...], systemPrompt: string }
+ *
+ * Response body:
+ * { content: string } or { error: string }
  */
 export default {
     async fetch(request) {

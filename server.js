@@ -99,6 +99,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Serve docs/index.html for root and static assets for everything else.
     let url = req.url === '/' ? '/index.html' : req.url;
     url = url.split('?')[0];
     if (url.startsWith('/api/')) {

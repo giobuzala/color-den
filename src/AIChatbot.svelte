@@ -80,12 +80,14 @@ Rules:
 
         loading = true;
         try {
+            const promptForModel = buildSystemPrompt();
+            const conversation = messages.filter(m => m.role === 'user' || m.role === 'assistant');
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    messages: messages.filter(m => m.role === 'user' || m.role === 'assistant'),
-                    systemPrompt: buildSystemPrompt()
+                    messages: conversation,
+                    systemPrompt: promptForModel
                 })
             });
 

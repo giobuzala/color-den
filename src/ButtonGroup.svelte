@@ -1,10 +1,11 @@
 <script>
     export let options = [];
     export let value;
-    export let label = '';
 
     const id = Math.round(Math.random() * 1e7).toString(36);
-    $: options2 = options.map(s => (typeof s === 'string' ? { value: s, title: s } : s));
+    $: normalizedOptions = options.map(option =>
+        typeof option === 'string' ? { value: option, title: option } : option
+    );
 </script>
 
 <style>
@@ -41,7 +42,7 @@
 </style>
 
 <div class="seg-group">
-    {#each options2 as option}
+    {#each normalizedOptions as option}
         <label class="seg-btn" class:active={value === option.value}>
             <input
                 bind:group={value}

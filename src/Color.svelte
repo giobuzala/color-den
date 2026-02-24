@@ -36,7 +36,6 @@
     }
     .badge + .badge {
         margin-left: 1ex;
-
     }
     span.inverted {
         color: white;
@@ -63,8 +62,8 @@
     }
     span.color:nth-child(7) {
         border: 2px solid black;
-        margin-top:-1px;
-        margin-right: 0px;
+        margin-top: -1px;
+        margin-right: 0;
         height: 31px;
     }
     span.color:nth-child(8) {
@@ -86,34 +85,35 @@
     style="background: {value.hex()}">
     <span class="hex">{value.hex().substr(1)}</span>
     {#if open && !dragging}
-    <div style="position: absolute;top:0px;left:0;right:0;height: 40px">
-        <div
-            class="popover fade show bs-popover-bottom"
-            role="tooltip" x-placement="bottom">
-            <div class="arrow" style="left: 121px;"></div>
-            <div class="popover-header" aria-hidden="true"></div>
-            <div class="popover-body">
-                <div class="color-row">
-                    <span class="lbl">L</span>
-                    {#each lightness as l}
-                    <span on:click="{() => value = l}" class="color" style="background: {l.hex()}"></span>
-                    {/each}
-                </div>
-                <div class="color-row">
-                    <span class="lbl">S</span>
-                    {#each saturation as c}
-                    <span on:click="{() => value = c}" class="color" style="background: {c.hex()}"></span>
-                    {/each}
-                </div>
-                <div class="color-row">
-                    <span class="lbl">H</span>
-                    {#each hue as c}
-                    <span on:click="{() => value = c}" class="color" style="background: {c.hex()}"></span>
-                    {/each}
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 40px">
+            <div
+                class="popover fade show bs-popover-bottom"
+                role="tooltip"
+                x-placement="bottom">
+                <div class="arrow" style="left: 121px;"></div>
+                <div class="popover-header" aria-hidden="true"></div>
+                <div class="popover-body">
+                    <div class="color-row">
+                        <span class="lbl">L</span>
+                        {#each lightness as l}
+                            <span on:click={() => (value = l)} class="color" style="background: {l.hex()}"></span>
+                        {/each}
+                    </div>
+                    <div class="color-row">
+                        <span class="lbl">S</span>
+                        {#each saturation as c}
+                            <span on:click={() => (value = c)} class="color" style="background: {c.hex()}"></span>
+                        {/each}
+                    </div>
+                    <div class="color-row">
+                        <span class="lbl">H</span>
+                        {#each hue as c}
+                            <span on:click={() => (value = c)} class="color" style="background: {c.hex()}"></span>
+                        {/each}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {/if}
 </span>
 

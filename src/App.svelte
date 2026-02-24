@@ -36,7 +36,7 @@
         bezier ? 1 : 0
     ].join('|');
 
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') > -1;
+    const isMac = navigator.platform.toUpperCase().includes('MAC');
 
     let _hash = '';
     let _mode = 'sequential';
@@ -57,15 +57,13 @@
     function readStateFromHash() {
         const parts = window.location.hash.substr(2).split('|');
         if (parts.length === 6) {
-            setTimeout(() => {
-                numColors = +parts[0];
-                mode = parts[1] === 's' ? 'sequential' : 'diverging';
-                _mode = mode;
-                colors = parts[2].split(',').map(c => c && chroma(c));
-                colors2 = parts[3] !== '' ? parts[3].split(',').map(c => c && chroma(c)) : [];
-                correctLightness = parts[4] === '1';
-                bezier = parts[5] === '1';
-            });
+            numColors = +parts[0];
+            mode = parts[1] === 's' ? 'sequential' : 'diverging';
+            _mode = mode;
+            colors = parts[2].split(',').map(c => c && chroma(c));
+            colors2 = parts[3] !== '' ? parts[3].split(',').map(c => c && chroma(c)) : [];
+            correctLightness = parts[4] === '1';
+            bezier = parts[5] === '1';
         } else {
             window.location.hash = '';
         }
@@ -139,13 +137,6 @@
         font-size: 0.92rem;
         margin-bottom: 0;
     }
-    select.custom-select {
-        display: inline-block;
-        width: auto;
-        font-size: inherit;
-        padding: 0.4em 1.7em 0.4em 0.4em;
-        margin: 0px 0.7ex 5px;
-    }
     .step1-row {
         display: flex;
         align-items: center;
@@ -164,7 +155,7 @@
         color: #4b5563;
         white-space: nowrap;
     }
-    input[type=number] {
+    input[type='number'] {
         width: 3.2em;
         text-align: center;
         margin: 0;
@@ -175,7 +166,7 @@
         font-size: 0.98rem;
         padding: 0.4em 0.5em;
     }
-    input[type=number]:focus {
+    input[type='number']:focus {
         outline: none;
         border-color: #4b6cb7;
     }
@@ -199,15 +190,15 @@
         color: #111827;
     }
     kbd {
-        background-color:#f3f4f6;
-        border:1px solid #d1d5db;
-        border-radius:4px;
-        box-shadow:0 1px 0 rgba(0,0,0,0.08);
-        color:#374151;
-        display:inline-block;
-        line-height:1.4;
-        margin:0 .1em;
-        padding:.1em .5em;
+        background-color: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+        color: #374151;
+        display: inline-block;
+        line-height: 1.4;
+        margin: 0 0.1em;
+        padding: 0.1em 0.5em;
         font-size: 0.85em;
     }
     :global(.custom-control-label) {
@@ -227,7 +218,7 @@
         <div class="step1-row">
             <div class="step1-field">
                 <span class="label-text">Palette type:</span>
-                <ButtonGroup options="{['sequential', 'diverging']}" bind:value={mode} />
+                <ButtonGroup options={['sequential', 'diverging']} bind:value={mode} />
             </div>
             <div class="step1-field">
                 <span class="label-text">Number of colors:</span>
@@ -237,7 +228,7 @@
     </Card>
 
     <Card step="2" title="Select and arrange input colors">
-        <InputColors diverging="{mode==='diverging'}" bind:colors bind:colors2 />
+        <InputColors diverging={mode === 'diverging'} bind:colors bind:colors2 />
     </Card>
 
     <Card step="3" title="Check and configure the resulting palette">
@@ -256,7 +247,7 @@
             bind:bezier
             bind:colors
             bind:colors2
-            diverging="{mode === 'diverging'}"
+            diverging={mode === 'diverging'}
             simulate={simulate}
             bind:numColors />
         <div class="row">
@@ -278,7 +269,14 @@
     </Card>
     <div class="foot">
         <hr>
-        <p>Created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better use of colors in maps and data visualizations, forked and extended by <a href="https://giobuzala.com/" target="_blank">Giorgi Buzaladze</a> with an added AI layer.</p>
+        <p>
+            Created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better use of colors
+            in maps and data visualizations, forked and extended by
+            <a href="https://giobuzala.com/" target="_blank" rel="noopener noreferrer"
+                >Giorgi Buzaladze</a
+            >
+            with an added AI layer.
+        </p>
     </div>
 </div>
 
