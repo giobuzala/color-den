@@ -10152,7 +10152,7 @@ Rules:
 
     const file$b = "src\\App.svelte";
 
-    // (217:4) <Card step="1" title="What kind of palette do you want to create?">
+    // (226:4) <Card step="1" title="What kind of palette do you want to create?">
     function create_default_slot_3(ctx) {
     	var div2, div0, span0, t1, updating_value, t2, div1, span1, t4, input, current, dispose;
 
@@ -10185,19 +10185,19 @@ Rules:
     			t4 = space();
     			input = element("input");
     			attr(span0, "class", "label-text svelte-1bbt59u");
-    			add_location(span0, file$b, 219, 16, 6676);
+    			add_location(span0, file$b, 228, 16, 6977);
     			attr(div0, "class", "step1-field svelte-1bbt59u");
-    			add_location(div0, file$b, 218, 12, 6633);
+    			add_location(div0, file$b, 227, 12, 6934);
     			attr(span1, "class", "label-text svelte-1bbt59u");
-    			add_location(span1, file$b, 223, 16, 6887);
+    			add_location(span1, file$b, 232, 16, 7188);
     			attr(input, "type", "number");
     			attr(input, "min", "2");
     			attr(input, "class", "svelte-1bbt59u");
-    			add_location(input, file$b, 224, 16, 6954);
+    			add_location(input, file$b, 233, 16, 7255);
     			attr(div1, "class", "step1-field svelte-1bbt59u");
-    			add_location(div1, file$b, 222, 12, 6844);
+    			add_location(div1, file$b, 231, 12, 7145);
     			attr(div2, "class", "step1-row svelte-1bbt59u");
-    			add_location(div2, file$b, 217, 8, 6596);
+    			add_location(div2, file$b, 226, 8, 6897);
     			dispose = listen(input, "input", ctx.input_input_handler);
     		},
 
@@ -10252,7 +10252,7 @@ Rules:
     	};
     }
 
-    // (230:4) <Card step="2" title="Select and arrange input colors">
+    // (239:4) <Card step="2" title="Select and arrange input colors">
     function create_default_slot_2(ctx) {
     	var updating_colors, updating_colors2, current;
 
@@ -10320,7 +10320,7 @@ Rules:
     	};
     }
 
-    // (234:4) <Card step="3" title="Check and configure the resulting palette">
+    // (243:4) <Card step="3" title="Check and configure the resulting palette">
     function create_default_slot_1(ctx) {
     	var div2, div0, updating_value, t0, updating_value_1, t1, div1, updating_colors, updating_active, t2, updating_steps, updating_correctLightness, updating_bezier, updating_colors_1, updating_colors2, updating_numColors, t3, div6, div3, t4, div4, t5, div5, current;
 
@@ -10505,20 +10505,20 @@ Rules:
     			div5 = element("div");
     			stepchart2.$$.fragment.c();
     			attr(div0, "class", "col-md");
-    			add_location(div0, file$b, 235, 12, 7358);
+    			add_location(div0, file$b, 244, 12, 7659);
     			attr(div1, "class", "col-md");
-    			add_location(div1, file$b, 239, 12, 7815);
+    			add_location(div1, file$b, 248, 12, 8116);
     			attr(div2, "class", "row");
     			set_style(div2, "margin-bottom", "10px");
-    			add_location(div2, file$b, 234, 8, 7299);
+    			add_location(div2, file$b, 243, 8, 7600);
     			attr(div3, "class", "col-md");
-    			add_location(div3, file$b, 253, 12, 8262);
+    			add_location(div3, file$b, 262, 12, 8563);
     			attr(div4, "class", "col-md");
-    			add_location(div4, file$b, 256, 12, 8388);
+    			add_location(div4, file$b, 265, 12, 8689);
     			attr(div5, "class", "col-md");
-    			add_location(div5, file$b, 259, 12, 8515);
+    			add_location(div5, file$b, 268, 12, 8816);
     			attr(div6, "class", "row");
-    			add_location(div6, file$b, 252, 8, 8231);
+    			add_location(div6, file$b, 261, 8, 8532);
     		},
 
     		m: function mount(target, anchor) {
@@ -10664,9 +10664,9 @@ Rules:
     	};
     }
 
-    // (266:4) <Card step="4" title="Export the color codes in various formats">
+    // (275:4) <Card step="4" title="Export the color codes in various formats">
     function create_default_slot(ctx) {
-    	var p, t0, a, t1, a_href_value, t2, kbd0, t3_value = ctx.isMac ? 'cmd' : 'ctrl', t3, t4, kbd1, t6, t7, current;
+    	var p, t0, a, t1, t2, kbd0, t3_value = ctx.isMac ? 'cmd' : 'ctrl', t3, t4, kbd1, t6, t7, current;
 
     	var export_1 = new Export({
     		props: { steps: ctx.steps },
@@ -10688,13 +10688,13 @@ Rules:
     			t6 = text(".");
     			t7 = space();
     			export_1.$$.fragment.c();
-    			attr(a, "href", a_href_value = "#/" + ctx.hash);
-    			add_location(a, file$b, 266, 67, 8792);
+    			attr(a, "href", ctx.hashHref);
+    			add_location(a, file$b, 275, 67, 9093);
     			attr(kbd0, "class", "svelte-1bbt59u");
-    			add_location(kbd0, file$b, 266, 106, 8831);
+    			add_location(kbd0, file$b, 275, 106, 9132);
     			attr(kbd1, "class", "svelte-1bbt59u");
-    			add_location(kbd1, file$b, 266, 142, 8867);
-    			add_location(p, file$b, 266, 8, 8733);
+    			add_location(kbd1, file$b, 275, 142, 9168);
+    			add_location(p, file$b, 275, 8, 9034);
     		},
 
     		m: function mount(target, anchor) {
@@ -10714,8 +10714,8 @@ Rules:
     		},
 
     		p: function update(changed, ctx) {
-    			if ((!current || changed.hash) && a_href_value !== (a_href_value = "#/" + ctx.hash)) {
-    				attr(a, "href", a_href_value);
+    			if (!current || changed.hashHref) {
+    				attr(a, "href", ctx.hashHref);
     			}
 
     			var export_1_changes = {};
@@ -10829,35 +10829,35 @@ Rules:
     			t17 = text("\r\n            with an added AI layer.");
     			t18 = space();
     			aichatbot.$$.fragment.c();
-    			add_location(h1, file$b, 213, 8, 6161);
+    			add_location(h1, file$b, 222, 8, 6462);
     			attr(a0, "href", "https://github.com/gka/chroma.js");
     			attr(a0, "target", "_blank");
-    			add_location(a0, file$b, 214, 16, 6230);
+    			add_location(a0, file$b, 223, 16, 6531);
     			attr(a1, "href", "https://www.vis4.net/blog/mastering-multi-hued-color-scales/");
     			attr(a1, "target", "_blank");
-    			add_location(a1, file$b, 214, 128, 6342);
+    			add_location(a1, file$b, 223, 128, 6643);
     			attr(p0, "class", "svelte-1bbt59u");
-    			add_location(p0, file$b, 214, 8, 6222);
+    			add_location(p0, file$b, 223, 8, 6523);
     			attr(div0, "class", "head svelte-1bbt59u");
-    			add_location(div0, file$b, 212, 4, 6133);
+    			add_location(div0, file$b, 221, 4, 6434);
     			attr(hr, "class", "svelte-1bbt59u");
-    			add_location(hr, file$b, 270, 8, 8965);
+    			add_location(hr, file$b, 279, 8, 9266);
     			attr(a2, "href", "https://vis4.net/blog");
     			attr(a2, "target", "_blank");
     			attr(a2, "rel", "noopener noreferrer");
     			attr(a2, "class", "svelte-1bbt59u");
-    			add_location(a2, file$b, 272, 23, 9007);
+    			add_location(a2, file$b, 281, 23, 9308);
     			attr(a3, "href", "https://giobuzala.com/");
     			attr(a3, "target", "_blank");
     			attr(a3, "rel", "noopener noreferrer");
     			attr(a3, "class", "svelte-1bbt59u");
-    			add_location(a3, file$b, 274, 12, 9217);
+    			add_location(a3, file$b, 283, 12, 9518);
     			attr(p1, "class", "svelte-1bbt59u");
-    			add_location(p1, file$b, 271, 8, 8979);
+    			add_location(p1, file$b, 280, 8, 9280);
     			attr(div1, "class", "foot svelte-1bbt59u");
-    			add_location(div1, file$b, 269, 4, 8937);
+    			add_location(div1, file$b, 278, 4, 9238);
     			attr(div2, "class", "container");
-    			add_location(div2, file$b, 211, 0, 6104);
+    			add_location(div2, file$b, 220, 0, 6405);
     			dispose = listen(window, "hashchange", ctx.hashChange);
     		},
 
@@ -10913,7 +10913,7 @@ Rules:
     			card2.$set(card2_changes);
 
     			var card3_changes = {};
-    			if (changed.$$scope || changed.steps || changed.hash) card3_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.steps || changed.hashHref) card3_changes.$$scope = { changed, ctx };
     			card3.$set(card3_changes);
     		},
 
@@ -11013,7 +11013,7 @@ Rules:
         beforeUpdate(() => {
             if (hash !== _hash) {
                 _hash = hash;
-                window.location.hash = `#/${hash}`;
+                window.location.hash = hashHref;
             }
             if (mode !== _mode) {
                 if (mode === 'diverging' && !colors2.length) {
@@ -11024,7 +11024,14 @@ Rules:
         });
 
         function readStateFromHash() {
-            const parts = window.location.hash.substr(2).split('|');
+            const raw = window.location.hash.startsWith('#/') ? window.location.hash.substr(2) : '';
+            let decoded = raw;
+            try {
+                decoded = decodeURIComponent(raw);
+            } catch (e) {
+                decoded = raw;
+            }
+            const parts = decoded.split('|');
             if (parts.length === 6) {
                 $$invalidate('numColors', numColors = +parts[0]);
                 $$invalidate('mode', mode = parts[1] === 's' ? 'sequential' : 'diverging');
@@ -11039,7 +11046,7 @@ Rules:
         }
 
         function hashChange() {
-            if (window.location.hash !== `#/${hash}`) {
+            if (window.location.hash !== hashHref) {
                 // deserialize hash
                 readStateFromHash();
             }
@@ -11143,10 +11150,10 @@ Rules:
     		$$invalidate('numColors', numColors);
     	}
 
-    	let hash;
+    	let hashRaw, hash, hashHref;
 
-    	$$self.$$.update = ($$dirty = { numColors: 1, mode: 1, colors: 1, colors2: 1, correctLightness: 1, bezier: 1 }) => {
-    		if ($$dirty.numColors || $$dirty.mode || $$dirty.colors || $$dirty.colors2 || $$dirty.correctLightness || $$dirty.bezier) { $$invalidate('hash', hash = [
+    	$$self.$$.update = ($$dirty = { numColors: 1, mode: 1, colors: 1, colors2: 1, correctLightness: 1, bezier: 1, hashRaw: 1, hash: 1 }) => {
+    		if ($$dirty.numColors || $$dirty.mode || $$dirty.colors || $$dirty.colors2 || $$dirty.correctLightness || $$dirty.bezier) { $$invalidate('hashRaw', hashRaw = [
                     numColors,
                     mode.substr(0, 1),
                     colors.map(c => c.hex().substr(1)).join(','),
@@ -11154,6 +11161,8 @@ Rules:
                     correctLightness ? 1 : 0,
                     bezier ? 1 : 0
                 ].join('|')); }
+    		if ($$dirty.hashRaw) { $$invalidate('hash', hash = encodeURIComponent(hashRaw)); }
+    		if ($$dirty.hash) { $$invalidate('hashHref', hashHref = `#/${hash}`); }
     	};
 
     	return {
@@ -11168,7 +11177,7 @@ Rules:
     		isMac,
     		hashChange,
     		handleApplyPalette,
-    		hash,
+    		hashHref,
     		buttongroup_value_binding,
     		input_input_handler,
     		inputcolors_colors_binding,

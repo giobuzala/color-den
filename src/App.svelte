@@ -27,7 +27,7 @@
 
     // URL hash encodes the current palette state for easy sharing/bookmarking.
     // Format: numColors|mode(s/d)|colors|colors2|correctLightness(0/1)|bezier(0/1)
-    $: hash = [
+    $: hashRaw = [
         numColors,
         mode.substr(0, 1),
         colors.map(c => c.hex().substr(1)).join(','),
@@ -35,6 +35,8 @@
         correctLightness ? 1 : 0,
         bezier ? 1 : 0
     ].join('|');
+    $: hash = encodeURIComponent(hashRaw);
+    $: hashHref = `#/${hash}`;
 
     const isMac = navigator.platform.toUpperCase().includes('MAC');
 
@@ -44,7 +46,7 @@
     beforeUpdate(() => {
         if (hash !== _hash) {
             _hash = hash;
-            window.location.hash = `#/${hash}`;
+            window.location.hash = hashHref;
         }
         if (mode !== _mode) {
             if (mode === 'diverging' && !colors2.length) {
@@ -55,7 +57,14 @@
     });
 
     function readStateFromHash() {
-        const parts = window.location.hash.substr(2).split('|');
+        const raw = window.location.hash.startsWith('#/') ? window.location.hash.substr(2) : '';
+        let decoded = raw;
+        try {
+            decoded = decodeURIComponent(raw);
+        } catch (e) {
+            decoded = raw;
+        }
+        const parts = decoded.split('|');
         if (parts.length === 6) {
             numColors = +parts[0];
             mode = parts[1] === 's' ? 'sequential' : 'diverging';
@@ -70,7 +79,7 @@
     }
 
     function hashChange() {
-        if (window.location.hash !== `#/${hash}`) {
+        if (window.location.hash !== hashHref) {
             // deserialize hash
             readStateFromHash();
         }
@@ -264,7 +273,7 @@
     </Card>
 
     <Card step="4" title="Export the color codes in various formats">
-        <p>You can also save your palette for later by bookmarking <a href="#/{hash}">this page</a> using <kbd>{isMac ? 'cmd' : 'ctrl'}</kbd>+<kbd>d</kbd>.</p>
+        <p>You can also save your palette for later by bookmarking <a href={hashHref}>this page</a> using <kbd>{isMac ? 'cmd' : 'ctrl'}</kbd>+<kbd>d</kbd>.</p>
         <Export steps={steps} />
     </Card>
     <div class="foot">
