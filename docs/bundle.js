@@ -10152,7 +10152,7 @@ Rules:
 
     const file$b = "src\\App.svelte";
 
-    // (226:4) <Card step="1" title="What kind of palette do you want to create?">
+    // (395:4) <Card step="1" title="What kind of palette do you want to create?">
     function create_default_slot_3(ctx) {
     	var div2, div0, span0, t1, updating_value, t2, div1, span1, t4, input, current, dispose;
 
@@ -10184,21 +10184,26 @@ Rules:
     			span1.textContent = "Number of colors:";
     			t4 = space();
     			input = element("input");
-    			attr(span0, "class", "label-text svelte-1bbt59u");
-    			add_location(span0, file$b, 228, 16, 6977);
-    			attr(div0, "class", "step1-field svelte-1bbt59u");
-    			add_location(div0, file$b, 227, 12, 6934);
-    			attr(span1, "class", "label-text svelte-1bbt59u");
-    			add_location(span1, file$b, 232, 16, 7188);
+    			attr(span0, "class", "label-text svelte-12zm645");
+    			add_location(span0, file$b, 397, 16, 12496);
+    			attr(div0, "class", "step1-field svelte-12zm645");
+    			add_location(div0, file$b, 396, 12, 12453);
+    			attr(span1, "class", "label-text svelte-12zm645");
+    			add_location(span1, file$b, 401, 16, 12707);
     			attr(input, "type", "number");
     			attr(input, "min", "2");
-    			attr(input, "class", "svelte-1bbt59u");
-    			add_location(input, file$b, 233, 16, 7255);
-    			attr(div1, "class", "step1-field svelte-1bbt59u");
-    			add_location(div1, file$b, 231, 12, 7145);
-    			attr(div2, "class", "step1-row svelte-1bbt59u");
-    			add_location(div2, file$b, 226, 8, 6897);
-    			dispose = listen(input, "input", ctx.input_input_handler);
+    			attr(input, "max", "50");
+    			attr(input, "class", "svelte-12zm645");
+    			add_location(input, file$b, 402, 16, 12774);
+    			attr(div1, "class", "step1-field svelte-12zm645");
+    			add_location(div1, file$b, 400, 12, 12664);
+    			attr(div2, "class", "step1-row svelte-12zm645");
+    			add_location(div2, file$b, 395, 8, 12416);
+
+    			dispose = [
+    				listen(input, "input", ctx.input_input_handler),
+    				listen(input, "input", ctx.input_handler)
+    			];
     		},
 
     		m: function mount(target, anchor) {
@@ -10247,12 +10252,12 @@ Rules:
 
     			destroy_component(buttongroup, );
 
-    			dispose();
+    			run_all(dispose);
     		}
     	};
     }
 
-    // (239:4) <Card step="2" title="Select and arrange input colors">
+    // (413:4) <Card step="2" title="Select and arrange input colors">
     function create_default_slot_2(ctx) {
     	var updating_colors, updating_colors2, current;
 
@@ -10320,7 +10325,7 @@ Rules:
     	};
     }
 
-    // (243:4) <Card step="3" title="Check and configure the resulting palette">
+    // (417:4) <Card step="3" title="Check and configure the resulting palette">
     function create_default_slot_1(ctx) {
     	var div2, div0, updating_value, t0, updating_value_1, t1, div1, updating_colors, updating_active, t2, updating_steps, updating_correctLightness, updating_bezier, updating_colors_1, updating_colors2, updating_numColors, t3, div6, div3, t4, div4, t5, div5, current;
 
@@ -10505,20 +10510,20 @@ Rules:
     			div5 = element("div");
     			stepchart2.$$.fragment.c();
     			attr(div0, "class", "col-md");
-    			add_location(div0, file$b, 244, 12, 7659);
+    			add_location(div0, file$b, 418, 12, 13349);
     			attr(div1, "class", "col-md");
-    			add_location(div1, file$b, 248, 12, 8116);
+    			add_location(div1, file$b, 422, 12, 13806);
     			attr(div2, "class", "row");
     			set_style(div2, "margin-bottom", "10px");
-    			add_location(div2, file$b, 243, 8, 7600);
+    			add_location(div2, file$b, 417, 8, 13290);
     			attr(div3, "class", "col-md");
-    			add_location(div3, file$b, 262, 12, 8563);
+    			add_location(div3, file$b, 436, 12, 14253);
     			attr(div4, "class", "col-md");
-    			add_location(div4, file$b, 265, 12, 8689);
+    			add_location(div4, file$b, 439, 12, 14379);
     			attr(div5, "class", "col-md");
-    			add_location(div5, file$b, 268, 12, 8816);
+    			add_location(div5, file$b, 442, 12, 14506);
     			attr(div6, "class", "row");
-    			add_location(div6, file$b, 261, 8, 8532);
+    			add_location(div6, file$b, 435, 8, 14222);
     		},
 
     		m: function mount(target, anchor) {
@@ -10664,9 +10669,9 @@ Rules:
     	};
     }
 
-    // (275:4) <Card step="4" title="Export the color codes in various formats">
+    // (449:4) <Card step="4" title="Export the color codes in various formats">
     function create_default_slot(ctx) {
-    	var p, t0, a, t1, t2, kbd0, t3_value = ctx.isMac ? 'cmd' : 'ctrl', t3, t4, kbd1, t6, t7, current;
+    	var current;
 
     	var export_1 = new Export({
     		props: { steps: ctx.steps },
@@ -10675,49 +10680,15 @@ Rules:
 
     	return {
     		c: function create() {
-    			p = element("p");
-    			t0 = text("You can also save your palette for later by bookmarking ");
-    			a = element("a");
-    			t1 = text("this page");
-    			t2 = text(" using ");
-    			kbd0 = element("kbd");
-    			t3 = text(t3_value);
-    			t4 = text("+");
-    			kbd1 = element("kbd");
-    			kbd1.textContent = "d";
-    			t6 = text(".");
-    			t7 = space();
     			export_1.$$.fragment.c();
-    			attr(a, "href", ctx.hashHref);
-    			add_location(a, file$b, 275, 67, 9093);
-    			attr(kbd0, "class", "svelte-1bbt59u");
-    			add_location(kbd0, file$b, 275, 106, 9132);
-    			attr(kbd1, "class", "svelte-1bbt59u");
-    			add_location(kbd1, file$b, 275, 142, 9168);
-    			add_location(p, file$b, 275, 8, 9034);
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, p, anchor);
-    			append(p, t0);
-    			append(p, a);
-    			append(a, t1);
-    			append(p, t2);
-    			append(p, kbd0);
-    			append(kbd0, t3);
-    			append(p, t4);
-    			append(p, kbd1);
-    			append(p, t6);
-    			insert(target, t7, anchor);
     			mount_component(export_1, target, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			if (!current || changed.hashHref) {
-    				attr(a, "href", ctx.hashHref);
-    			}
-
     			var export_1_changes = {};
     			if (changed.steps) export_1_changes.steps = ctx.steps;
     			export_1.$set(export_1_changes);
@@ -10736,18 +10707,13 @@ Rules:
     		},
 
     		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(p);
-    				detach(t7);
-    			}
-
     			destroy_component(export_1, detaching);
     		}
     	};
     }
 
     function create_fragment$b(ctx) {
-    	var div2, div0, h1, t1, p0, t2, a0, t4, a1, t6, t7, t8, t9, t10, t11, div1, hr, t12, p1, t13, a2, t15, a3, t17, t18, current, dispose;
+    	var div5, div2, div1, h1, t1, div0, button0, t3, button1, t5, p0, t6, a0, t8, a1, t10, t11, t12, t13, t14, t15, div4, hr, t16, p1, t17, a2, t19, a3, t21, t22, div3, a4, svg0, path0, t23, a5, svg1, path1, t24, current, dispose;
 
     	var card0 = new Card({
     		props: {
@@ -10794,71 +10760,138 @@ Rules:
 
     	return {
     		c: function create() {
+    			div5 = element("div");
     			div2 = element("div");
-    			div0 = element("div");
+    			div1 = element("div");
     			h1 = element("h1");
     			h1.textContent = "Color Den: chroma.js Color Palette Copilot";
     			t1 = space();
+    			div0 = element("div");
+    			button0 = element("button");
+    			button0.textContent = "Back";
+    			t3 = space();
+    			button1 = element("button");
+    			button1.textContent = "Forward";
+    			t5 = space();
     			p0 = element("p");
-    			t2 = text("This ");
+    			t6 = text("This ");
     			a0 = element("a");
     			a0.textContent = "chroma.js";
-    			t4 = text("-powered tool is here to help us master ");
+    			t8 = text("-powered tool is here to help us master ");
     			a1 = element("a");
     			a1.textContent = "multi-hued, multi-stop color scales";
-    			t6 = text(", with a little help from AI.");
-    			t7 = space();
-    			card0.$$.fragment.c();
-    			t8 = space();
-    			card1.$$.fragment.c();
-    			t9 = space();
-    			card2.$$.fragment.c();
-    			t10 = space();
-    			card3.$$.fragment.c();
+    			t10 = text(", with a little help from AI.");
     			t11 = space();
-    			div1 = element("div");
-    			hr = element("hr");
+    			card0.$$.fragment.c();
     			t12 = space();
+    			card1.$$.fragment.c();
+    			t13 = space();
+    			card2.$$.fragment.c();
+    			t14 = space();
+    			card3.$$.fragment.c();
+    			t15 = space();
+    			div4 = element("div");
+    			hr = element("hr");
+    			t16 = space();
     			p1 = element("p");
-    			t13 = text("Created by ");
+    			t17 = text("Created by ");
     			a2 = element("a");
     			a2.textContent = "Gregor Aisch";
-    			t15 = text(" for the sake of better use of colors\r\n            in maps and data visualizations, forked and extended by\r\n            ");
+    			t19 = text(" for the sake of better use of colors\r\n            in maps and data visualizations, forked and extended by\r\n            ");
     			a3 = element("a");
     			a3.textContent = "Giorgi Buzaladze";
-    			t17 = text("\r\n            with an added AI layer.");
-    			t18 = space();
+    			t21 = text("\r\n            with an added AI layer.");
+    			t22 = space();
+    			div3 = element("div");
+    			a4 = element("a");
+    			svg0 = svg_element("svg");
+    			path0 = svg_element("path");
+    			t23 = space();
+    			a5 = element("a");
+    			svg1 = svg_element("svg");
+    			path1 = svg_element("path");
+    			t24 = space();
     			aichatbot.$$.fragment.c();
-    			add_location(h1, file$b, 222, 8, 6462);
+    			add_location(h1, file$b, 386, 12, 11605);
+    			attr(button0, "class", "history-btn svelte-12zm645");
+    			attr(button0, "type", "button");
+    			attr(button0, "title", "Go to previous palette state");
+    			add_location(button0, file$b, 388, 16, 11756);
+    			attr(button1, "class", "history-btn svelte-12zm645");
+    			attr(button1, "type", "button");
+    			attr(button1, "title", "Go to next palette state");
+    			add_location(button1, file$b, 389, 16, 11884);
+    			attr(div0, "class", "history-controls svelte-12zm645");
+    			attr(div0, "aria-label", "Palette history controls");
+    			add_location(div0, file$b, 387, 12, 11670);
+    			attr(div1, "class", "head-top svelte-12zm645");
+    			add_location(div1, file$b, 385, 8, 11569);
     			attr(a0, "href", "https://github.com/gka/chroma.js");
     			attr(a0, "target", "_blank");
-    			add_location(a0, file$b, 223, 16, 6531);
+    			add_location(a0, file$b, 392, 16, 12050);
     			attr(a1, "href", "https://www.vis4.net/blog/mastering-multi-hued-color-scales/");
     			attr(a1, "target", "_blank");
-    			add_location(a1, file$b, 223, 128, 6643);
-    			attr(p0, "class", "svelte-1bbt59u");
-    			add_location(p0, file$b, 223, 8, 6523);
-    			attr(div0, "class", "head svelte-1bbt59u");
-    			add_location(div0, file$b, 221, 4, 6434);
-    			attr(hr, "class", "svelte-1bbt59u");
-    			add_location(hr, file$b, 279, 8, 9266);
+    			add_location(a1, file$b, 392, 128, 12162);
+    			attr(p0, "class", "svelte-12zm645");
+    			add_location(p0, file$b, 392, 8, 12042);
+    			attr(div2, "class", "head svelte-12zm645");
+    			add_location(div2, file$b, 384, 4, 11541);
+    			attr(hr, "class", "svelte-12zm645");
+    			add_location(hr, file$b, 452, 8, 14795);
     			attr(a2, "href", "https://vis4.net/blog");
     			attr(a2, "target", "_blank");
     			attr(a2, "rel", "noopener noreferrer");
-    			attr(a2, "class", "svelte-1bbt59u");
-    			add_location(a2, file$b, 281, 23, 9308);
+    			attr(a2, "class", "svelte-12zm645");
+    			add_location(a2, file$b, 454, 23, 14837);
     			attr(a3, "href", "https://giobuzala.com/");
     			attr(a3, "target", "_blank");
     			attr(a3, "rel", "noopener noreferrer");
-    			attr(a3, "class", "svelte-1bbt59u");
-    			add_location(a3, file$b, 283, 12, 9518);
-    			attr(p1, "class", "svelte-1bbt59u");
-    			add_location(p1, file$b, 280, 8, 9280);
-    			attr(div1, "class", "foot svelte-1bbt59u");
-    			add_location(div1, file$b, 278, 4, 9238);
-    			attr(div2, "class", "container");
-    			add_location(div2, file$b, 220, 0, 6405);
-    			dispose = listen(window, "hashchange", ctx.hashChange);
+    			attr(a3, "class", "svelte-12zm645");
+    			add_location(a3, file$b, 456, 12, 15047);
+    			attr(p1, "class", "svelte-12zm645");
+    			add_location(p1, file$b, 453, 8, 14809);
+    			attr(path0, "d", "M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52 0-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.55 7.55 0 012 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z");
+    			add_location(path0, file$b, 470, 20, 15697);
+    			attr(svg0, "viewBox", "0 0 16 16");
+    			attr(svg0, "fill", "currentColor");
+    			attr(svg0, "aria-hidden", "true");
+    			attr(svg0, "class", "svelte-12zm645");
+    			add_location(svg0, file$b, 469, 16, 15611);
+    			attr(a4, "class", "repo-link svelte-12zm645");
+    			attr(a4, "href", "https://github.com/gka/palettes");
+    			attr(a4, "target", "_blank");
+    			attr(a4, "rel", "noopener noreferrer");
+    			attr(a4, "title", "Original repository (gka/palettes)");
+    			attr(a4, "aria-label", "Original repository on GitHub");
+    			add_location(a4, file$b, 462, 12, 15303);
+    			attr(path1, "d", "M5 3.09a2.5 2.5 0 11-1 0V2.5a2.5 2.5 0 115 0v.59a2.5 2.5 0 11-1 0V2.5a1.5 1.5 0 10-3 0v.59zM3.5 4a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm5 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM2 9.5A2.5 2.5 0 014.5 7h3A2.5 2.5 0 0110 9.5V12a2 2 0 11-1 0V9.5A1.5 1.5 0 007.5 8h-3A1.5 1.5 0 003 9.5V12a2 2 0 11-1 0V9.5zm.5 3.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z");
+    			add_location(path1, file$b, 481, 20, 16711);
+    			attr(svg1, "viewBox", "0 0 16 16");
+    			attr(svg1, "fill", "currentColor");
+    			attr(svg1, "aria-hidden", "true");
+    			attr(svg1, "class", "svelte-12zm645");
+    			add_location(svg1, file$b, 480, 16, 16625);
+    			attr(a5, "class", "repo-link svelte-12zm645");
+    			attr(a5, "href", "https://github.com/giobuzala/color-den");
+    			attr(a5, "target", "_blank");
+    			attr(a5, "rel", "noopener noreferrer");
+    			attr(a5, "title", "Fork repository (giobuzala/color-den)");
+    			attr(a5, "aria-label", "Fork repository on GitHub");
+    			add_location(a5, file$b, 473, 12, 16311);
+    			attr(div3, "class", "repo-links svelte-12zm645");
+    			attr(div3, "aria-label", "Repository links");
+    			add_location(div3, file$b, 461, 8, 15235);
+    			attr(div4, "class", "foot svelte-12zm645");
+    			add_location(div4, file$b, 451, 4, 14767);
+    			attr(div5, "class", "container");
+    			add_location(div5, file$b, 383, 0, 11512);
+
+    			dispose = [
+    				listen(window, "hashchange", ctx.hashChange),
+    				listen(window, "popstate", ctx.onPopState),
+    				listen(button0, "click", goBack),
+    				listen(button1, "click", goForward)
+    			];
     		},
 
     		l: function claim(nodes) {
@@ -10866,35 +10899,50 @@ Rules:
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div2, anchor);
-    			append(div2, div0);
-    			append(div0, h1);
-    			append(div0, t1);
-    			append(div0, p0);
-    			append(p0, t2);
-    			append(p0, a0);
-    			append(p0, t4);
-    			append(p0, a1);
-    			append(p0, t6);
-    			append(div2, t7);
-    			mount_component(card0, div2, null);
-    			append(div2, t8);
-    			mount_component(card1, div2, null);
-    			append(div2, t9);
-    			mount_component(card2, div2, null);
-    			append(div2, t10);
-    			mount_component(card3, div2, null);
-    			append(div2, t11);
+    			insert(target, div5, anchor);
+    			append(div5, div2);
     			append(div2, div1);
-    			append(div1, hr);
-    			append(div1, t12);
-    			append(div1, p1);
-    			append(p1, t13);
-    			append(p1, a2);
-    			append(p1, t15);
-    			append(p1, a3);
+    			append(div1, h1);
+    			append(div1, t1);
+    			append(div1, div0);
+    			append(div0, button0);
+    			append(div0, t3);
+    			append(div0, button1);
+    			append(div2, t5);
+    			append(div2, p0);
+    			append(p0, t6);
+    			append(p0, a0);
+    			append(p0, t8);
+    			append(p0, a1);
+    			append(p0, t10);
+    			append(div5, t11);
+    			mount_component(card0, div5, null);
+    			append(div5, t12);
+    			mount_component(card1, div5, null);
+    			append(div5, t13);
+    			mount_component(card2, div5, null);
+    			append(div5, t14);
+    			mount_component(card3, div5, null);
+    			append(div5, t15);
+    			append(div5, div4);
+    			append(div4, hr);
+    			append(div4, t16);
+    			append(div4, p1);
     			append(p1, t17);
-    			insert(target, t18, anchor);
+    			append(p1, a2);
+    			append(p1, t19);
+    			append(p1, a3);
+    			append(p1, t21);
+    			append(div4, t22);
+    			append(div4, div3);
+    			append(div3, a4);
+    			append(a4, svg0);
+    			append(svg0, path0);
+    			append(div3, t23);
+    			append(div3, a5);
+    			append(a5, svg1);
+    			append(svg1, path1);
+    			insert(target, t24, anchor);
     			mount_component(aichatbot, target, anchor);
     			current = true;
     		},
@@ -10913,7 +10961,7 @@ Rules:
     			card2.$set(card2_changes);
 
     			var card3_changes = {};
-    			if (changed.$$scope || changed.steps || changed.hashHref) card3_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.steps) card3_changes.$$scope = { changed, ctx };
     			card3.$set(card3_changes);
     		},
 
@@ -10943,7 +10991,7 @@ Rules:
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div2);
+    				detach(div5);
     			}
 
     			destroy_component(card0, );
@@ -10955,14 +11003,32 @@ Rules:
     			destroy_component(card3, );
 
     			if (detaching) {
-    				detach(t18);
+    				detach(t24);
     			}
 
     			destroy_component(aichatbot, detaching);
 
-    			dispose();
+    			run_all(dispose);
     		}
     	};
+    }
+
+    function clampNumColors(value) {
+        const n = Math.round(+value);
+        if (!isFinite(n)) return 2;
+        return Math.min(50, Math.max(2, n));
+    }
+
+    function getStateKey(state) {
+        return [
+            state.numColors,
+            state.mode,
+            state.colors,
+            state.colors2,
+            state.correctLightness,
+            state.bezier,
+            state.simulate
+        ].join('|');
     }
 
     function normalizeHex(rawColor) {
@@ -10988,6 +11054,14 @@ Rules:
         return parsed.length ? parsed : fallback;
     }
 
+    function goBack() {
+        history.back();
+    }
+
+    function goForward() {
+        history.forward();
+    }
+
     function instance$b($$self, $$props, $$invalidate) {
     	
 
@@ -11001,19 +11075,44 @@ Rules:
         let mode = 'sequential';
         let simulate = 'none';
 
+        const baseHref = `${window.location.pathname}${window.location.search}`;
+        let _historyKey = '';
+        let _historyReady = false;
+        let _applyingFromHistory = false;
+
         if (window.location.hash) {
             readStateFromHash();
         }
 
         const isMac = navigator.platform.toUpperCase().includes('MAC');
 
-        let _hash = '';
         let _mode = 'sequential';
+        const validSimulations = ['none', 'deuteranopia', 'protanopia', 'tritanopia'];
+
+        function getCurrentState() {
+            return {
+                numColors,
+                mode: mode.substr(0, 1),
+                colors: colors.map(c => c.hex().substr(1)).join(','),
+                colors2: colors2.length ? colors2.map(c => c.hex().substr(1)).join(',') : '',
+                correctLightness: correctLightness ? 1 : 0,
+                bezier: bezier ? 1 : 0,
+                simulate
+            };
+        }
 
         beforeUpdate(() => {
-            if (hash !== _hash) {
-                _hash = hash;
-                window.location.hash = hashHref;
+            if (!_applyingFromHistory) {
+                const state = getCurrentState();
+                const key = getStateKey(state);
+                if (!_historyReady) {
+                    history.replaceState(state, '', baseHref);
+                    _historyReady = true;
+                    _historyKey = key;
+                } else if (key !== _historyKey) {
+                    history.pushState(state, '', baseHref);
+                    _historyKey = key;
+                }
             }
             if (mode !== _mode) {
                 if (mode === 'diverging' && !colors2.length) {
@@ -11025,30 +11124,97 @@ Rules:
 
         function readStateFromHash() {
             const raw = window.location.hash.startsWith('#/') ? window.location.hash.substr(2) : '';
+            // Be tolerant of percent-encoding (and occasional double-encoding) so shared links work
+            // across chat apps and browsers.
             let decoded = raw;
-            try {
-                decoded = decodeURIComponent(raw);
-            } catch (e) {
-                decoded = raw;
+            for (let i = 0; i < 2; i++) {
+                try {
+                    decoded = decodeURIComponent(decoded);
+                } catch (e) {
+                    break;
+                }
             }
+            decoded = decoded.replace(/%7C/gi, '|');
             const parts = decoded.split('|');
             if (parts.length === 6) {
-                $$invalidate('numColors', numColors = +parts[0]);
-                $$invalidate('mode', mode = parts[1] === 's' ? 'sequential' : 'diverging');
-                _mode = mode;
-                $$invalidate('colors', colors = parts[2].split(',').map(c => c && chroma(c)));
-                $$invalidate('colors2', colors2 = parts[3] !== '' ? parts[3].split(',').map(c => c && chroma(c)) : []);
+                const parsedNumColors = Math.round(+parts[0]);
+                const parsedMode =
+                    parts[1] === 's' ? 'sequential' : parts[1] === 'd' ? 'diverging' : null;
+                if (!isFinite(parsedNumColors) || parsedNumColors < 2 || parsedNumColors > 50 || !parsedMode) {
+                    return;
+                }
+
+                const parsedColors = toChromaList(parts[2].split(','), colors);
+                const parsedColors2 = parts[3] !== '' ? toChromaList(parts[3].split(','), colors2) : [];
+
+                $$invalidate('numColors', numColors = parsedNumColors);
+                $$invalidate('mode', mode = parsedMode);
+                _mode = parsedMode;
+                $$invalidate('colors', colors = parsedColors);
+                $$invalidate('colors2', colors2 = parsedColors2);
                 $$invalidate('correctLightness', correctLightness = parts[4] === '1');
                 $$invalidate('bezier', bezier = parts[5] === '1');
-            } else {
-                window.location.hash = '';
             }
         }
 
         function hashChange() {
-            if (window.location.hash !== hashHref) {
-                // deserialize hash
+            if (window.location.hash) {
                 readStateFromHash();
+                const current = getCurrentState();
+                history.replaceState(current, '', baseHref);
+                _historyKey = getStateKey(current);
+                _historyReady = true;
+            }
+        }
+
+        function applyHistoryState(state, fallbackColors, fallbackColors2) {
+            const parsedNumColors = Math.round(+state.numColors);
+            const parsedMode =
+                state.mode === 's'
+                    ? 'sequential'
+                    : state.mode === 'd'
+                      ? 'diverging'
+                      : state.mode === 'sequential' || state.mode === 'diverging'
+                        ? state.mode
+                        : null;
+            if (!isFinite(parsedNumColors) || parsedNumColors < 2 || parsedNumColors > 50 || !parsedMode) return false;
+
+            const parsedColors = toChromaList(
+                String(state.colors || '')
+                    .split(',')
+                    .filter(Boolean),
+                fallbackColors
+            );
+            const parsedColors2 = String(state.colors2 || '').trim()
+                ? toChromaList(
+                      String(state.colors2)
+                          .split(',')
+                          .filter(Boolean),
+                      fallbackColors2
+                  )
+                : [];
+
+            $$invalidate('numColors', numColors = parsedNumColors);
+            $$invalidate('mode', mode = parsedMode);
+            _mode = parsedMode;
+            $$invalidate('colors', colors = parsedColors);
+            $$invalidate('colors2', colors2 = parsedColors2);
+            $$invalidate('correctLightness', correctLightness = String(state.correctLightness) === '1' || state.correctLightness === true);
+            $$invalidate('bezier', bezier = String(state.bezier) === '1' || state.bezier === true);
+            $$invalidate('simulate', simulate = validSimulations.includes(state.simulate) ? state.simulate : 'none');
+            return true;
+        }
+
+        function onPopState(event) {
+            const state = event && event.state;
+            if (!state) return;
+            _applyingFromHistory = true;
+            try {
+                if (!applyHistoryState(state, colors, colors2)) return;
+                _historyKey = getStateKey(getCurrentState());
+                _historyReady = true;
+            } finally {
+                _applyingFromHistory = false;
             }
         }
 
@@ -11060,7 +11226,7 @@ Rules:
             }
 
             const parsedNumColors = Math.round(+config.numColors);
-            if (isFinite(parsedNumColors) && parsedNumColors >= 2) {
+            if (isFinite(parsedNumColors) && parsedNumColors >= 2 && parsedNumColors <= 50) {
                 $$invalidate('numColors', numColors = parsedNumColors);
             }
 
@@ -11088,6 +11254,12 @@ Rules:
     	function input_input_handler() {
     		numColors = to_number(this.value);
     		$$invalidate('numColors', numColors);
+    	}
+
+    	function input_handler() {
+    		const $$result = (numColors = clampNumColors(numColors));
+    		$$invalidate('numColors', numColors);
+    		return $$result;
     	}
 
     	function inputcolors_colors_binding(value) {
@@ -11150,19 +11322,13 @@ Rules:
     		$$invalidate('numColors', numColors);
     	}
 
-    	let hashRaw, hash, hashHref;
-
-    	$$self.$$.update = ($$dirty = { numColors: 1, mode: 1, colors: 1, colors2: 1, correctLightness: 1, bezier: 1, hashRaw: 1, hash: 1 }) => {
-    		if ($$dirty.numColors || $$dirty.mode || $$dirty.colors || $$dirty.colors2 || $$dirty.correctLightness || $$dirty.bezier) { $$invalidate('hashRaw', hashRaw = [
-                    numColors,
-                    mode.substr(0, 1),
-                    colors.map(c => c.hex().substr(1)).join(','),
-                    colors2.length ? colors2.map(c => c.hex().substr(1)).join(',') : '',
-                    correctLightness ? 1 : 0,
-                    bezier ? 1 : 0
-                ].join('|')); }
-    		if ($$dirty.hashRaw) { $$invalidate('hash', hash = encodeURIComponent(hashRaw)); }
-    		if ($$dirty.hash) { $$invalidate('hashHref', hashHref = `#/${hash}`); }
+    	$$self.$$.update = ($$dirty = { numColors: 1 }) => {
+    		if ($$dirty.numColors) { {
+                    const clamped = clampNumColors(numColors);
+                    if (numColors !== clamped) {
+                        $$invalidate('numColors', numColors = clamped);
+                    }
+                } }
     	};
 
     	return {
@@ -11174,12 +11340,12 @@ Rules:
     		numColors,
     		mode,
     		simulate,
-    		isMac,
     		hashChange,
+    		onPopState,
     		handleApplyPalette,
-    		hashHref,
     		buttongroup_value_binding,
     		input_input_handler,
+    		input_handler,
     		inputcolors_colors_binding,
     		inputcolors_colors2_binding,
     		checkbox0_value_binding,
