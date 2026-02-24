@@ -270,7 +270,7 @@
     <div class="foot">
         <hr>
         <p>
-            Created by <a href="https://vis4.net/blog">Gregor Aisch</a> for the sake of better use of colors
+            Created by <a href="https://vis4.net/blog" target="_blank" rel="noopener noreferrer">Gregor Aisch</a> for the sake of better use of colors
             in maps and data visualizations, forked and extended by
             <a href="https://giobuzala.com/" target="_blank" rel="noopener noreferrer"
                 >Giorgi Buzaladze</a

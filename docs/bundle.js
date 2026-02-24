@@ -10843,13 +10843,15 @@ Rules:
     			attr(hr, "class", "svelte-1bbt59u");
     			add_location(hr, file$b, 270, 8, 8965);
     			attr(a2, "href", "https://vis4.net/blog");
+    			attr(a2, "target", "_blank");
+    			attr(a2, "rel", "noopener noreferrer");
     			attr(a2, "class", "svelte-1bbt59u");
     			add_location(a2, file$b, 272, 23, 9007);
     			attr(a3, "href", "https://giobuzala.com/");
     			attr(a3, "target", "_blank");
     			attr(a3, "rel", "noopener noreferrer");
     			attr(a3, "class", "svelte-1bbt59u");
-    			add_location(a3, file$b, 274, 12, 9175);
+    			add_location(a3, file$b, 274, 12, 9217);
     			attr(p1, "class", "svelte-1bbt59u");
     			add_location(p1, file$b, 271, 8, 8979);
     			attr(div1, "class", "foot svelte-1bbt59u");
