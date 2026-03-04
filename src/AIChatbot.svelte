@@ -155,9 +155,9 @@ Rules:
 
         <div class="chat-input">
             <textarea
-                rows="2"
+                rows="1"
                 bind:value={message}
-                placeholder='Try: "Calm diverging palette with 5 colors"'
+                placeholder='Describe the palette…'
                 on:keydown={onMessageKeydown} />
             <button class="send-btn" disabled={loading} on:click={sendMessage}>
                 {loading ? '...' : 'Send'}
@@ -270,15 +270,17 @@ Rules:
 
     .chat-input textarea {
         flex: 1;
-        resize: none;
+        resize: vertical;
+        max-height: 120px;
         border: 1px solid #e5e7eb;
         border-radius: 10px;
-        padding: 8px 10px;
+        padding: 6px 10px;
         font-size: 13px;
         font-family: inherit;
         line-height: 1.4;
         background: #fff;
         margin: 0;
+        min-height: 36px;
     }
     .chat-input textarea:focus {
         outline: none;

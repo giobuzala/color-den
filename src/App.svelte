@@ -23,6 +23,7 @@
 
     const baseHref = `${window.location.pathname}${window.location.search}`;
     let _historyKey = '';
+    let _initialStateKey = '';
     let _historyReady = false;
     let _applyingFromHistory = false;
 
@@ -80,6 +81,7 @@
                 history.replaceState(state, '', baseHref);
                 _historyReady = true;
                 _historyKey = key;
+                _initialStateKey = key;
             } else if (key !== _historyKey) {
                 history.pushState(state, '', baseHref);
                 _historyKey = key;
@@ -134,6 +136,7 @@
             const current = getCurrentState();
             history.replaceState(current, '', baseHref);
             _historyKey = getStateKey(current);
+            if (!_historyReady) _initialStateKey = _historyKey;
             _historyReady = true;
         }
     }
@@ -241,6 +244,7 @@
     }
 
     function goBack() {
+        if (_historyKey === _initialStateKey) return;
         history.back();
     }
 
