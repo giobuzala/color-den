@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    import agentInstructions from './AGENT_INSTRUCTIONS.md?raw';
 
     const dispatch = createEventDispatcher();
 
@@ -12,31 +13,12 @@
         {
             role: 'assistant',
             content:
-                'Tell me the palette you want, for example: "Create a calm diverging palette with 5 colors."'
+                'I am a color palette assistant here to help you build palettes. Try something like: "Create a calm diverging palette with 5 colors."'
         }
     ];
 
     function buildSystemPrompt() {
-        return `You are a color palette assistant for a chroma.js palette tool.
-Your job is to convert user requests into palette settings.
-
-Return only a JSON object with this exact shape:
-{
-  "mode": "sequential" | "diverging",
-  "numColors": number,
-  "colors": ["#RRGGBB", ...],
-  "colors2": ["#RRGGBB", ...],
-  "bezier": boolean,
-  "correctLightness": boolean
-}
-
-Rules:
-- numColors must be >= 2
-- mode must be either "sequential" or "diverging"
-- For sequential mode: colors2 should be []
-- For diverging mode: provide both colors and colors2 with at least 2 color stops each
-- Prefer valid 6-digit hex values in colors and colors2
-- Do not add markdown, code fences, or explanation text`;
+        return agentInstructions;
     }
 
     function describeAppliedConfig(config) {
@@ -105,7 +87,6 @@ Rules:
                 messages = [...messages, { role: 'assistant', content: describeAppliedConfig(parsed) }];
             } else {
                 messages = [...messages, { role: 'assistant', content: content || 'I could not generate a response.' }];
-                error = content ? 'I could not parse palette JSON from the response.' : '';
             }
         } catch (e) {
             error = (e && e.message) || 'Request failed.';

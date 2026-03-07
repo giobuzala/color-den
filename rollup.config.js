@@ -3,7 +3,30 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import path from 'path';
+import fs from 'fs';
+
 const production = !process.env.ROLLUP_WATCH;
+
+function rawPlugin() {
+    return {
+        name: 'raw',
+        resolveId(id, importer) {
+            if (!id.endsWith('?raw')) return null;
+            const base = id.slice(0, -4);
+            const resolved = importer
+                ? path.resolve(path.dirname(importer), base)
+                : path.resolve(base);
+            return resolved + '?raw';
+        },
+        load(id) {
+            if (!id.endsWith('?raw')) return null;
+            const filePath = id.slice(0, -4);
+            const content = fs.readFileSync(filePath, 'utf8');
+            return `export default ${JSON.stringify(content)}`;
+        }
+    };
+}
 
 export default {
 	input: 'src/main.js',
@@ -14,6 +37,7 @@ export default {
 		file: 'docs/bundle.js'
 	},
 	plugins: [
+		rawPlugin(),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
