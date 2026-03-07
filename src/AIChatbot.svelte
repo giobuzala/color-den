@@ -29,27 +29,35 @@
         return `Applied ${modeLabel} palette with ${count} colors (bezier ${bezierLabel}, lightness correction ${lightnessLabel}).`;
     }
 
+    /**
+     * Extracts palette JSON from AI response. Returns { config, conversational }
+     * where conversational is the text after the JSON (trimmed), or null if no parse.
+     */
     function extractPaletteConfig(text) {
         const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+        let jsonStr = null;
+        let rest = '';
+
         if (codeBlockMatch && codeBlockMatch[1]) {
-            try {
-                return JSON.parse(codeBlockMatch[1].trim());
-            } catch (e) {
-                // Fall through to looser parsing.
+            jsonStr = codeBlockMatch[1].trim();
+            const afterBlock = text.indexOf('```', codeBlockMatch.index + 3);
+            rest = afterBlock !== -1 ? text.slice(afterBlock + 3).replace(/^[\s\n]*/, '').trim() : '';
+        } else {
+            const start = text.indexOf('{');
+            const end = text.lastIndexOf('}');
+            if (start !== -1 && end !== -1 && end > start) {
+                jsonStr = text.substring(start, end + 1);
+                rest = text.slice(end + 1).replace(/^[\s\n]*/, '').trim();
             }
         }
 
-        const start = text.indexOf('{');
-        const end = text.lastIndexOf('}');
-        if (start !== -1 && end !== -1 && end > start) {
-            try {
-                return JSON.parse(text.substring(start, end + 1));
-            } catch (e) {
-                return null;
-            }
+        if (!jsonStr) return null;
+        try {
+            const config = JSON.parse(jsonStr);
+            return { config, conversational: rest || null };
+        } catch (e) {
+            return null;
         }
-
-        return null;
     }
 
     async function sendMessage() {
@@ -81,10 +89,14 @@
                 return;
             }
 
-            const parsed = extractPaletteConfig(content);
-            if (parsed) {
-                dispatch('applyPalette', parsed);
-                messages = [...messages, { role: 'assistant', content: describeAppliedConfig(parsed) }];
+            const result = extractPaletteConfig(content);
+            if (result) {
+                dispatch('applyPalette', result.config);
+                const reply =
+                    result.conversational && result.conversational.length > 0
+                        ? result.conversational
+                        : describeAppliedConfig(result.config);
+                messages = [...messages, { role: 'assistant', content: reply }];
             } else {
                 messages = [...messages, { role: 'assistant', content: content || 'I could not generate a response.' }];
             }
