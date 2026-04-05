@@ -5,6 +5,8 @@
 
     export let colors = [];
     export let active = 'none';
+    /** When the toolbar wraps, hide the status line and use in-flow layout (see App step 3). */
+    export let stacked = false;
 
     const types = ['none', 'deuteranopia', 'protanopia', 'tritanopia'];
     const typeTitles = {
@@ -17,15 +19,28 @@
 
 <style>
 @media (min-width: 720px) {
-    .colorblind-sim {
+    .colorblind-sim:not(.stacked) {
         text-align: right;
         position: absolute;
-        right: 20px;
+        right: 5px;
         top: -34px;
     }
-    .res {
+    .colorblind-sim:not(.stacked) .res {
         text-align: right;
+        transform: translateX(-5px);
     }
+}
+
+.colorblind-sim.stacked {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    text-align: left;
+}
+
+.colorblind-sim.stacked .res {
+    display: none;
 }
 
 .res {
@@ -38,10 +53,12 @@
     font-weight: 600;
 }
 
+/* Match .palette padding so "simulate" lines up with the first swatch below */
 .sim-row {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin-left: 6px;
 }
 
 .sim-label {
@@ -88,7 +105,7 @@
 
 </style>
 
-<div class="colorblind-sim">
+<div class="colorblind-sim" class:stacked>
     {#if result.length}
         <p class="res text-danger">Not colorblind-safe</p>
     {:else}
@@ -109,7 +126,7 @@
                         type="radio"
                         name="cbSim"
                         autocomplete="off" />
-                    {type === 'none' ? 'normal' : type.substr(0, 4) + '.'}
+                    {type === 'none' ? 'normal' : type.slice(0, 4) + '.'}
                 </label>
             {/each}
         </div>

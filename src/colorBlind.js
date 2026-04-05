@@ -4,8 +4,8 @@ import chroma from 'chroma-js';
 export function colorBlindCheck(colors) {
     const types = ['deuteranopia', 'protanopia', 'tritanopia'];
     const invalid = [];
-    for (let i = 0; i < types.length; i++) {
-        if (!checkType(colors, types[i])) invalid.push(types[i]);
+    for (const type of types) {
+        if (!checkType(colors, type)) invalid.push(type);
     }
     return invalid;
 }

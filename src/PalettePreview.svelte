@@ -74,6 +74,7 @@
         padding: 6px;
         display: flex;
         height: 112px;
+        margin-top: 4px;
         border-radius: 10px;
         box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
         overflow: hidden;

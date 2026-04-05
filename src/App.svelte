@@ -1,6 +1,6 @@
 <script>
     import chroma from 'chroma-js';
-    import { beforeUpdate } from 'svelte';
+    import { beforeUpdate, onMount, tick } from 'svelte';
     import Checkbox from './Checkbox.svelte';
     import InputColors from './InputColors.svelte';
     import PalettePreview from './PalettePreview.svelte';
@@ -31,7 +31,52 @@
         readStateFromHash();
     }
 
-    const isMac = navigator.platform.toUpperCase().includes('MAC');
+    /** True when checkboxes + simulate (incl. status line width) do not fit on one row. */
+    let step3ToolbarStacked = false;
+    let step3ToolbarEl;
+    let step3CheckGroupEl;
+    let step3SimSlotEl;
+    /** Kept while .res is hidden so we do not under-estimate width and flip layout in a loop. */
+    let step3LastResWidth = 200;
+
+    function measureStep3ToolbarStacked() {
+        if (!step3ToolbarEl || !step3CheckGroupEl || !step3SimSlotEl) return;
+        const simRoot = step3SimSlotEl.querySelector('.colorblind-sim');
+        if (!simRoot) return;
+        const resEl = simRoot.querySelector('.res');
+        const simRow = simRoot.querySelector('.sim-row');
+        const simRowW = simRow ? simRow.offsetWidth : 0;
+        if (resEl && resEl.offsetWidth > 0) {
+            step3LastResWidth = resEl.offsetWidth;
+        }
+        const simBlockW = Math.max(simRowW, step3LastResWidth);
+        const gapX = 20;
+        const checksW = step3CheckGroupEl.offsetWidth;
+        const toolbarW = step3ToolbarEl.clientWidth;
+        step3ToolbarStacked = checksW + simBlockW + gapX > toolbarW + 1;
+    }
+
+    $: if (step3ToolbarEl) {
+        void steps.length;
+        void simulate;
+        tick().then(measureStep3ToolbarStacked);
+    }
+
+    onMount(() => {
+        const run = () => {
+            tick().then(measureStep3ToolbarStacked);
+        };
+        const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(run) : null;
+        if (ro && step3ToolbarEl) ro.observe(step3ToolbarEl);
+        if (ro && step3CheckGroupEl) ro.observe(step3CheckGroupEl);
+        if (ro && step3SimSlotEl) ro.observe(step3SimSlotEl);
+        run();
+        window.addEventListener('resize', run);
+        return () => {
+            window.removeEventListener('resize', run);
+            if (ro) ro.disconnect();
+        };
+    });
 
     let _mode = 'sequential';
     const validSimulations = ['none', 'deuteranopia', 'protanopia', 'tritanopia'];
@@ -52,9 +97,9 @@
     function getCurrentState() {
         return {
             numColors,
-            mode: mode.substr(0, 1),
-            colors: colors.map(c => c.hex().substr(1)).join(','),
-            colors2: colors2.length ? colors2.map(c => c.hex().substr(1)).join(',') : '',
+            mode: mode.slice(0, 1),
+            colors: colors.map(c => c.hex().slice(1)).join(','),
+            colors2: colors2.length ? colors2.map(c => c.hex().slice(1)).join(',') : '',
             correctLightness: correctLightness ? 1 : 0,
             bezier: bezier ? 1 : 0,
             simulate
@@ -96,7 +141,7 @@
     });
 
     function readStateFromHash() {
-        const raw = window.location.hash.startsWith('#/') ? window.location.hash.substr(2) : '';
+        const raw = window.location.hash.startsWith('#/') ? window.location.hash.slice(2) : '';
         // Be tolerant of percent-encoding (and occasional double-encoding) so shared links work
         // across chat apps and browsers.
         let decoded = raw;
@@ -365,6 +410,33 @@
     .foot p a:hover {
         color: #3b6fc4;
     }
+    .step3-toolbar {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .step3-toolbar-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 12px 20px;
+    }
+    .step3-check-group {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 1.25rem;
+        flex: 0 1 auto;
+        min-width: min-content;
+    }
+    .step3-sim-slot {
+        flex: 0 1 auto;
+        margin-left: auto;
+        min-width: 0;
+    }
+    .step3-toolbar--stacked .step3-sim-slot {
+        margin-left: 0;
+        flex: 1 1 100%;
+    }
     kbd {
         background-color: #f3f4f6;
         border: 1px solid #d1d5db;
@@ -419,13 +491,26 @@
     </Card>
 
     <Card step="3" title="Check and configure the resulting palette">
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md">
-                <Checkbox bind:value={correctLightness} label="correct lightness" title="Adjust luminance so palette colors have perceptually even steps (avoids some appearing too dark or too light)." />
-                <Checkbox bind:value={bezier} label="bezier interpolation" title="Interpolate along a Bézier curve in color space for smoother or more natural-looking gradients between colors." />
-            </div>
-            <div class="col-md">
-                <ColorBlindCheck bind:colors={steps} bind:active={simulate} />
+        <div
+            class="step3-toolbar"
+            class:step3-toolbar--stacked={step3ToolbarStacked}
+            bind:this={step3ToolbarEl}>
+            <div class="step3-toolbar-row">
+                <div class="step3-check-group" bind:this={step3CheckGroupEl}>
+                    <Checkbox
+                        bind:value={correctLightness}
+                        inline={false}
+                        label="correct lightness"
+                        title="Adjust luminance so palette colors have perceptually even steps (avoids some appearing too dark or too light)." />
+                    <Checkbox
+                        bind:value={bezier}
+                        inline={false}
+                        label="bezier interpolation"
+                        title="Interpolate along a Bézier curve in color space for smoother or more natural-looking gradients between colors." />
+                </div>
+                <div class="step3-sim-slot" bind:this={step3SimSlotEl}>
+                    <ColorBlindCheck bind:colors={steps} bind:active={simulate} stacked={step3ToolbarStacked} />
+                </div>
             </div>
         </div>
         <PalettePreview

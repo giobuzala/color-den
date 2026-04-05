@@ -83,7 +83,7 @@
     class:inverted={value.lab()[0] < 50}
     class="badge shadow-sm"
     style="background: {value.hex()}">
-    <span class="hex">{value.hex().substr(1)}</span>
+    <span class="hex">{value.hex().slice(1)}</span>
     {#if open && !dragging}
         <div style="position: absolute; top: 0; left: 0; right: 0; height: 40px">
             <div
