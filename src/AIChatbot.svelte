@@ -194,7 +194,7 @@
     .chat-panel {
         position: fixed;
         right: 24px;
-        bottom: 84px;
+        bottom: 88px;
         width: 340px;
         max-width: calc(100vw - 32px);
         height: 480px;
