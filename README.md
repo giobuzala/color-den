@@ -8,6 +8,8 @@ forked from Gregor Aisch’s original tool and extended with an AI assistant to 
 This project is a **fork** of [`gka/palettes`](https://github.com/gka/palettes),
 extended with an "Ask AI" flow.
 
+All credit for the core concept and methodology belongs to the original author.
+
 ## Overview
 
 Original app:
