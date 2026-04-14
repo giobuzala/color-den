@@ -5512,7 +5512,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (96:4) {#each steps as step}
+    // (101:4) {#each steps as step}
     function create_each_block$2(ctx) {
     	var div;
 
@@ -5521,7 +5521,7 @@ var app = (function () {
     			div = element("div");
     			attr(div, "class", "step svelte-s1zp6s");
     			set_style(div, "background", (ctx.simulate === 'none' ? ctx.step : colorBlindSim(ctx.step, ctx.simulate)));
-    			add_location(div, file$4, 96, 8, 3064);
+    			add_location(div, file$4, 101, 8, 3326);
     		},
 
     		m: function mount(target, anchor) {
@@ -5561,7 +5561,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr(div, "class", "palette svelte-s1zp6s");
-    			add_location(div, file$4, 94, 0, 3006);
+    			add_location(div, file$4, 99, 0, 3268);
     		},
 
     		l: function claim(nodes) {
@@ -5610,6 +5610,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
+    }
+
+    function canUseBezierScale(inputColors) {
+        // chroma.bezier only supports 2-5 control colors; fall back to linear beyond that.
+        return Array.isArray(inputColors) && inputColors.length > 1 && inputColors.length <= 5;
     }
 
     function instance$4($$self, $$props, $$invalidate) {
@@ -5671,13 +5676,13 @@ var app = (function () {
     		if ($$dirty.colors2 || $$dirty.numColorsRight) { $$invalidate('genColors2', genColors2 = colors2.length !== 1 ? colors2 : autoColors(colors2[0], numColorsRight, true)); }
     		if ($$dirty.colors || $$dirty.bezier || $$dirty.genColors || $$dirty.correctLightness || $$dirty.numColorsLeft) { $$invalidate('stepsLeft', stepsLeft = colors.length
                     ? chroma
-                          .scale(bezier && colors.length > 1 ? chroma.bezier(genColors) : genColors)
+                          .scale(bezier && canUseBezierScale(colors) ? chroma.bezier(genColors) : genColors)
                           .correctLightness(correctLightness)
                           .colors(numColorsLeft)
                     : []); }
     		if ($$dirty.diverging || $$dirty.colors2 || $$dirty.bezier || $$dirty.genColors2 || $$dirty.correctLightness || $$dirty.numColorsRight) { $$invalidate('stepsRight', stepsRight = diverging && colors2.length
                     ? chroma
-                          .scale(bezier && colors2.length > 1 ? chroma.bezier(genColors2) : genColors2)
+                          .scale(bezier && canUseBezierScale(colors2) ? chroma.bezier(genColors2) : genColors2)
                           .correctLightness(correctLightness)
                           .colors(numColorsRight)
                     : []); }
@@ -9715,7 +9720,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (134:0) {#if isOpen}
+    // (181:0) {#if isOpen}
     function create_if_block$6(ctx) {
     	var div2, div0, t0, t1, div1, textarea, t2, button, t3_value = ctx.loading ? '...' : 'Send', t3, dispose;
 
@@ -9747,18 +9752,18 @@ var app = (function () {
     			button = element("button");
     			t3 = text(t3_value);
     			attr(div0, "class", "chat-messages svelte-1l41ecz");
-    			add_location(div0, file$a, 135, 8, 4888);
+    			add_location(div0, file$a, 182, 8, 7001);
     			attr(textarea, "rows", "1");
     			attr(textarea, "placeholder", "Describe the palette…");
     			attr(textarea, "class", "svelte-1l41ecz");
-    			add_location(textarea, file$a, 149, 12, 5345);
+    			add_location(textarea, file$a, 196, 12, 7458);
     			attr(button, "class", "send-btn svelte-1l41ecz");
     			button.disabled = ctx.loading;
-    			add_location(button, file$a, 154, 12, 5535);
+    			add_location(button, file$a, 201, 12, 7648);
     			attr(div1, "class", "chat-input svelte-1l41ecz");
-    			add_location(div1, file$a, 148, 8, 5307);
+    			add_location(div1, file$a, 195, 8, 7420);
     			attr(div2, "class", "chat-panel svelte-1l41ecz");
-    			add_location(div2, file$a, 134, 4, 4854);
+    			add_location(div2, file$a, 181, 4, 6967);
 
     			dispose = [
     				listen(textarea, "input", ctx.textarea_input_handler),
@@ -9847,7 +9852,7 @@ var app = (function () {
     	};
     }
 
-    // (137:12) {#each messages as msg}
+    // (184:12) {#each messages as msg}
     function create_each_block$6(ctx) {
     	var div2, div0, t0_value = ctx.msg.role === 'user' ? 'You' : 'AI', t0, t1, div1, t2_value = ctx.msg.content, t2, div2_class_value;
 
@@ -9860,11 +9865,11 @@ var app = (function () {
     			div1 = element("div");
     			t2 = text(t2_value);
     			attr(div0, "class", "role svelte-1l41ecz");
-    			add_location(div0, file$a, 138, 20, 5023);
+    			add_location(div0, file$a, 185, 20, 7136);
     			attr(div1, "class", "content svelte-1l41ecz");
-    			add_location(div1, file$a, 139, 20, 5105);
+    			add_location(div1, file$a, 186, 20, 7218);
     			attr(div2, "class", div2_class_value = "bubble " + ctx.msg.role + " svelte-1l41ecz");
-    			add_location(div2, file$a, 137, 16, 4970);
+    			add_location(div2, file$a, 184, 16, 7083);
     		},
 
     		m: function mount(target, anchor) {
@@ -9898,7 +9903,7 @@ var app = (function () {
     	};
     }
 
-    // (145:8) {#if error}
+    // (192:8) {#if error}
     function create_if_block_1(ctx) {
     	var div, t;
 
@@ -9907,7 +9912,7 @@ var app = (function () {
     			div = element("div");
     			t = text(ctx.error);
     			attr(div, "class", "chat-error svelte-1l41ecz");
-    			add_location(div, file$a, 145, 12, 5243);
+    			add_location(div, file$a, 192, 12, 7356);
     		},
 
     		m: function mount(target, anchor) {
@@ -9946,7 +9951,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     			attr(path, "d", "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z");
-    			add_location(path, file$a, 128, 8, 4663);
+    			add_location(path, file$a, 175, 8, 6776);
     			attr(svg, "class", "chat-icon svelte-1l41ecz");
     			attr(svg, "width", "20");
     			attr(svg, "height", "20");
@@ -9956,12 +9961,12 @@ var app = (function () {
     			attr(svg, "stroke-width", "2");
     			attr(svg, "stroke-linecap", "round");
     			attr(svg, "stroke-linejoin", "round");
-    			add_location(svg, file$a, 118, 4, 4408);
+    			add_location(svg, file$a, 165, 4, 6521);
     			attr(span, "class", "chat-label svelte-1l41ecz");
-    			add_location(span, file$a, 130, 4, 4760);
+    			add_location(span, file$a, 177, 4, 6873);
     			attr(button, "class", "chat-toggle svelte-1l41ecz");
     			attr(button, "title", "AI palette assistant");
-    			add_location(button, file$a, 117, 0, 4309);
+    			add_location(button, file$a, 164, 0, 6422);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -10020,10 +10025,6 @@ var app = (function () {
     	};
     }
 
-    function buildSystemPrompt() {
-        return agentInstructions;
-    }
-
     function describeAppliedConfig(config) {
         const modeLabel = config.mode === 'diverging' ? 'diverging' : 'sequential';
         const count = Math.max(2, Math.round(+config.numColors || 0));
@@ -10059,10 +10060,38 @@ var app = (function () {
         }
     }
 
+    function normalizeHex(rawColor) {
+        if (typeof rawColor !== 'string') return null;
+        const trimmed = rawColor.trim();
+        if (!trimmed) return null;
+        return (trimmed[0] === '#' ? trimmed : `#${trimmed}`).toLowerCase();
+    }
+
+    function normalizeConfig(config) {
+        if (!config || typeof config !== 'object') return null;
+        return {
+            mode: config.mode === 'diverging' ? 'diverging' : 'sequential',
+            numColors: Math.max(2, Math.round(+config.numColors || 0)),
+            colors: Array.isArray(config.colors) ? config.colors.map(normalizeHex).filter(Boolean) : [],
+            colors2: Array.isArray(config.colors2) ? config.colors2.map(normalizeHex).filter(Boolean) : [],
+            bezier: Boolean(config.bezier),
+            correctLightness: Boolean(config.correctLightness)
+        };
+    }
+
+    function configsMatch(a, b) {
+        const left = normalizeConfig(a);
+        const right = normalizeConfig(b);
+        if (!left || !right) return false;
+        return JSON.stringify(left) === JSON.stringify(right);
+    }
+
     function instance$a($$self, $$props, $$invalidate) {
     	
 
         const dispatch = createEventDispatcher();
+
+        let { currentPalette = null } = $$props;
 
         let isOpen = false;
         let message = '';
@@ -10076,24 +10105,42 @@ var app = (function () {
                     'I am a color palette assistant here to help you build palettes. Try something like: "Create a calm diverging palette with 5 colors."'
             }
         ];
+        let apiMessages = [];
+
+        function buildSystemPrompt() {
+            const paletteContext = currentPalette
+                ? JSON.stringify(currentPalette, null, 2)
+                : '{"status":"unavailable"}';
+            return `${agentInstructions}
+
+---
+
+## CURRENT PALETTE STATE
+
+The user's current palette configuration in the app right now is:
+${paletteContext}
+
+When the user asks for a refinement like "make it darker", "more muted", or "keep this but...", modify this current palette state instead of inventing a new unrelated palette.`;
+        }
 
         async function sendMessage() {
             const prompt = message.trim();
             if (!prompt || loading) return;
 
             $$invalidate('error', error = '');
-            $$invalidate('messages', messages = [...messages, { role: 'user', content: prompt }]);
+            const userMessage = { role: 'user', content: prompt };
+            $$invalidate('messages', messages = [...messages, userMessage]);
+            apiMessages = [...apiMessages, userMessage];
             $$invalidate('message', message = '');
 
             $$invalidate('loading', loading = true);
             try {
                 const promptForModel = buildSystemPrompt();
-                const conversation = messages.filter(m => m.role === 'user' || m.role === 'assistant');
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        messages: conversation,
+                        messages: apiMessages,
                         systemPrompt: promptForModel
                     })
                 });
@@ -10108,14 +10155,19 @@ var app = (function () {
 
                 const result = extractPaletteConfig(content);
                 if (result) {
+                    const unchanged = configsMatch(result.config, currentPalette);
                     dispatch('applyPalette', result.config);
                     const reply =
-                        result.conversational && result.conversational.length > 0
+                        unchanged
+                            ? 'That response kept the same palette settings, so nothing visible changed. Try asking for a stronger or more specific adjustment.'
+                            : result.conversational && result.conversational.length > 0
                             ? result.conversational
                             : describeAppliedConfig(result.config);
                     $$invalidate('messages', messages = [...messages, { role: 'assistant', content: reply }]);
+                    apiMessages = [...apiMessages, { role: 'assistant', content }];
                 } else {
                     $$invalidate('messages', messages = [...messages, { role: 'assistant', content: content || 'I could not generate a response.' }]);
+                    apiMessages = [...apiMessages, { role: 'assistant', content: content || 'I could not generate a response.' }];
                 }
             } catch (e) {
                 $$invalidate('error', error = (e && e.message) || 'Request failed.');
@@ -10131,6 +10183,11 @@ var app = (function () {
             }
         }
 
+    	const writable_props = ['currentPalette'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<AIChatbot> was created with unknown prop '${key}'`);
+    	});
+
     	function click_handler() {
     		const $$result = (isOpen = !isOpen);
     		$$invalidate('isOpen', isOpen);
@@ -10142,7 +10199,12 @@ var app = (function () {
     		$$invalidate('message', message);
     	}
 
+    	$$self.$set = $$props => {
+    		if ('currentPalette' in $$props) $$invalidate('currentPalette', currentPalette = $$props.currentPalette);
+    	};
+
     	return {
+    		currentPalette,
     		isOpen,
     		message,
     		loading,
@@ -10158,7 +10220,15 @@ var app = (function () {
     class AIChatbot extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$a, create_fragment$a, safe_not_equal, []);
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, ["currentPalette"]);
+    	}
+
+    	get currentPalette() {
+    		throw new Error("<AIChatbot>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set currentPalette(value) {
+    		throw new Error("<AIChatbot>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -10166,7 +10236,7 @@ var app = (function () {
 
     const file$b = "src\\App.svelte";
 
-    // (471:4) <Card step="1" title="What kind of palette do you want to create?">
+    // (490:4) <Card step="1" title="What kind of palette do you want to create?">
     function create_default_slot_3(ctx) {
     	var div2, div0, span0, t1, updating_value, t2, div1, span1, t4, input, current, dispose;
 
@@ -10199,20 +10269,20 @@ var app = (function () {
     			t4 = space();
     			input = element("input");
     			attr(span0, "class", "label-text svelte-1q8ipca");
-    			add_location(span0, file$b, 473, 16, 14680);
+    			add_location(span0, file$b, 492, 16, 15350);
     			attr(div0, "class", "step1-field svelte-1q8ipca");
-    			add_location(div0, file$b, 472, 12, 14638);
+    			add_location(div0, file$b, 491, 12, 15308);
     			attr(span1, "class", "label-text svelte-1q8ipca");
-    			add_location(span1, file$b, 477, 16, 14887);
+    			add_location(span1, file$b, 496, 16, 15557);
     			attr(input, "type", "number");
     			attr(input, "min", "2");
     			attr(input, "max", "50");
     			attr(input, "class", "svelte-1q8ipca");
-    			add_location(input, file$b, 478, 16, 14953);
+    			add_location(input, file$b, 497, 16, 15623);
     			attr(div1, "class", "step1-field svelte-1q8ipca");
-    			add_location(div1, file$b, 476, 12, 14845);
+    			add_location(div1, file$b, 495, 12, 15515);
     			attr(div2, "class", "step1-row svelte-1q8ipca");
-    			add_location(div2, file$b, 471, 8, 14602);
+    			add_location(div2, file$b, 490, 8, 15272);
 
     			dispose = [
     				listen(input, "input", ctx.input_input_handler),
@@ -10271,7 +10341,7 @@ var app = (function () {
     	};
     }
 
-    // (489:4) <Card step="2" title="Select and arrange input colors">
+    // (508:4) <Card step="2" title="Select and arrange input colors">
     function create_default_slot_2(ctx) {
     	var updating_colors, updating_colors2, current;
 
@@ -10339,7 +10409,7 @@ var app = (function () {
     	};
     }
 
-    // (493:4) <Card step="3" title="Check and configure the resulting palette">
+    // (512:4) <Card step="3" title="Check and configure the resulting palette">
     function create_default_slot_1(ctx) {
     	var div3, div2, div0, updating_value, t0, updating_value_1, t1, div1, updating_colors, updating_active, t2, updating_steps, updating_correctLightness, updating_bezier, updating_colors_1, updating_colors2, updating_numColors, t3, div7, div4, t4, div5, t5, div6, current;
 
@@ -10527,22 +10597,22 @@ var app = (function () {
     			div6 = element("div");
     			stepchart2.$$.fragment.c();
     			attr(div0, "class", "step3-check-group svelte-1q8ipca");
-    			add_location(div0, file$b, 498, 16, 15656);
+    			add_location(div0, file$b, 517, 16, 16326);
     			attr(div1, "class", "step3-sim-slot svelte-1q8ipca");
-    			add_location(div1, file$b, 510, 16, 16388);
+    			add_location(div1, file$b, 529, 16, 17058);
     			attr(div2, "class", "step3-toolbar-row svelte-1q8ipca");
-    			add_location(div2, file$b, 497, 12, 15608);
+    			add_location(div2, file$b, 516, 12, 16278);
     			attr(div3, "class", "step3-toolbar svelte-1q8ipca");
     			toggle_class(div3, "step3-toolbar--stacked", ctx.step3ToolbarStacked);
-    			add_location(div3, file$b, 493, 8, 15454);
+    			add_location(div3, file$b, 512, 8, 16124);
     			attr(div4, "class", "col-md");
-    			add_location(div4, file$b, 525, 12, 16913);
+    			add_location(div4, file$b, 544, 12, 17583);
     			attr(div5, "class", "col-md");
-    			add_location(div5, file$b, 528, 12, 17036);
+    			add_location(div5, file$b, 547, 12, 17706);
     			attr(div6, "class", "col-md");
-    			add_location(div6, file$b, 531, 12, 17160);
+    			add_location(div6, file$b, 550, 12, 17830);
     			attr(div7, "class", "row");
-    			add_location(div7, file$b, 524, 8, 16883);
+    			add_location(div7, file$b, 543, 8, 17553);
     		},
 
     		m: function mount(target, anchor) {
@@ -10716,7 +10786,7 @@ var app = (function () {
     	};
     }
 
-    // (538:4) <Card step="4" title="Export the color codes in various formats">
+    // (557:4) <Card step="4" title="Export the color codes in various formats">
     function create_default_slot(ctx) {
     	var current;
 
@@ -10802,7 +10872,10 @@ var app = (function () {
     		$$inline: true
     	});
 
-    	var aichatbot = new AIChatbot({ $$inline: true });
+    	var aichatbot = new AIChatbot({
+    		props: { currentPalette: ctx.currentPaletteForAI },
+    		$$inline: true
+    	});
     	aichatbot.$on("applyPalette", ctx.handleApplyPalette);
 
     	return {
@@ -10859,79 +10932,79 @@ var app = (function () {
     			path1 = svg_element("path");
     			t24 = space();
     			aichatbot.$$.fragment.c();
-    			add_location(h1, file$b, 462, 12, 13800);
+    			add_location(h1, file$b, 481, 12, 14470);
     			attr(button0, "class", "history-btn svelte-1q8ipca");
     			attr(button0, "type", "button");
     			attr(button0, "title", "Go to previous palette state");
-    			add_location(button0, file$b, 464, 16, 13949);
+    			add_location(button0, file$b, 483, 16, 14619);
     			attr(button1, "class", "history-btn svelte-1q8ipca");
     			attr(button1, "type", "button");
     			attr(button1, "title", "Go to next palette state");
-    			add_location(button1, file$b, 465, 16, 14076);
+    			add_location(button1, file$b, 484, 16, 14746);
     			attr(div0, "class", "history-controls svelte-1q8ipca");
     			attr(div0, "aria-label", "Palette history controls");
-    			add_location(div0, file$b, 463, 12, 13864);
+    			add_location(div0, file$b, 482, 12, 14534);
     			attr(div1, "class", "head-top svelte-1q8ipca");
-    			add_location(div1, file$b, 461, 8, 13765);
+    			add_location(div1, file$b, 480, 8, 14435);
     			attr(a0, "href", "https://github.com/gka/chroma.js");
     			attr(a0, "target", "_blank");
-    			add_location(a0, file$b, 468, 16, 14239);
+    			add_location(a0, file$b, 487, 16, 14909);
     			attr(a1, "href", "https://www.vis4.net/blog/mastering-multi-hued-color-scales/");
     			attr(a1, "target", "_blank");
-    			add_location(a1, file$b, 468, 128, 14351);
+    			add_location(a1, file$b, 487, 128, 15021);
     			attr(p0, "class", "svelte-1q8ipca");
-    			add_location(p0, file$b, 468, 8, 14231);
+    			add_location(p0, file$b, 487, 8, 14901);
     			attr(div2, "class", "head svelte-1q8ipca");
-    			add_location(div2, file$b, 460, 4, 13738);
+    			add_location(div2, file$b, 479, 4, 14408);
     			attr(hr, "class", "svelte-1q8ipca");
-    			add_location(hr, file$b, 541, 8, 17439);
+    			add_location(hr, file$b, 560, 8, 18109);
     			attr(a2, "href", "https://vis4.net/blog");
     			attr(a2, "target", "_blank");
     			attr(a2, "rel", "noopener noreferrer");
     			attr(a2, "class", "svelte-1q8ipca");
-    			add_location(a2, file$b, 543, 23, 17479);
+    			add_location(a2, file$b, 562, 23, 18149);
     			attr(a3, "href", "https://giobuzala.com/");
     			attr(a3, "target", "_blank");
     			attr(a3, "rel", "noopener noreferrer");
     			attr(a3, "class", "svelte-1q8ipca");
-    			add_location(a3, file$b, 545, 12, 17687);
+    			add_location(a3, file$b, 564, 12, 18357);
     			attr(p1, "class", "svelte-1q8ipca");
-    			add_location(p1, file$b, 542, 8, 17452);
+    			add_location(p1, file$b, 561, 8, 18122);
     			attr(path0, "d", "M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52 0-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.55 7.55 0 012 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z");
-    			add_location(path0, file$b, 559, 20, 18323);
+    			add_location(path0, file$b, 578, 20, 18993);
     			attr(svg0, "viewBox", "0 0 16 16");
     			attr(svg0, "fill", "currentColor");
     			attr(svg0, "aria-hidden", "true");
     			attr(svg0, "class", "svelte-1q8ipca");
-    			add_location(svg0, file$b, 558, 16, 18238);
+    			add_location(svg0, file$b, 577, 16, 18908);
     			attr(a4, "class", "repo-link svelte-1q8ipca");
     			attr(a4, "href", "https://github.com/gka/palettes");
     			attr(a4, "target", "_blank");
     			attr(a4, "rel", "noopener noreferrer");
     			attr(a4, "title", "Original repository (gka/palettes)");
     			attr(a4, "aria-label", "Original repository on GitHub");
-    			add_location(a4, file$b, 551, 12, 17937);
+    			add_location(a4, file$b, 570, 12, 18607);
     			attr(path1, "d", "M5 3.09a2.5 2.5 0 11-1 0V2.5a2.5 2.5 0 115 0v.59a2.5 2.5 0 11-1 0V2.5a1.5 1.5 0 10-3 0v.59zM3.5 4a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm5 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM2 9.5A2.5 2.5 0 014.5 7h3A2.5 2.5 0 0110 9.5V12a2 2 0 11-1 0V9.5A1.5 1.5 0 007.5 8h-3A1.5 1.5 0 003 9.5V12a2 2 0 11-1 0V9.5zm.5 3.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z");
-    			add_location(path1, file$b, 570, 20, 19326);
+    			add_location(path1, file$b, 589, 20, 19996);
     			attr(svg1, "viewBox", "0 0 16 16");
     			attr(svg1, "fill", "currentColor");
     			attr(svg1, "aria-hidden", "true");
     			attr(svg1, "class", "svelte-1q8ipca");
-    			add_location(svg1, file$b, 569, 16, 19241);
+    			add_location(svg1, file$b, 588, 16, 19911);
     			attr(a5, "class", "repo-link svelte-1q8ipca");
     			attr(a5, "href", "https://github.com/giobuzala/color-den");
     			attr(a5, "target", "_blank");
     			attr(a5, "rel", "noopener noreferrer");
     			attr(a5, "title", "Fork repository (giobuzala/color-den)");
     			attr(a5, "aria-label", "Fork repository on GitHub");
-    			add_location(a5, file$b, 562, 12, 18934);
+    			add_location(a5, file$b, 581, 12, 19604);
     			attr(div3, "class", "repo-links svelte-1q8ipca");
     			attr(div3, "aria-label", "Repository links");
-    			add_location(div3, file$b, 550, 8, 17870);
+    			add_location(div3, file$b, 569, 8, 18540);
     			attr(div4, "class", "foot svelte-1q8ipca");
-    			add_location(div4, file$b, 540, 4, 17412);
+    			add_location(div4, file$b, 559, 4, 18082);
     			attr(div5, "class", "container");
-    			add_location(div5, file$b, 459, 0, 13710);
+    			add_location(div5, file$b, 478, 0, 14380);
 
     			dispose = [
     				listen(window, "hashchange", ctx.hashChange),
@@ -11010,6 +11083,10 @@ var app = (function () {
     			var card3_changes = {};
     			if (changed.$$scope || changed.steps) card3_changes.$$scope = { changed, ctx };
     			card3.$set(card3_changes);
+
+    			var aichatbot_changes = {};
+    			if (changed.currentPaletteForAI) aichatbot_changes.currentPalette = ctx.currentPaletteForAI;
+    			aichatbot.$set(aichatbot_changes);
     		},
 
     		i: function intro(local) {
@@ -11078,7 +11155,7 @@ var app = (function () {
         ].join('|');
     }
 
-    function normalizeHex(rawColor) {
+    function normalizeHex$1(rawColor) {
         if (typeof rawColor !== 'string') return null;
         const trimmed = rawColor.trim();
         if (!trimmed) return null;
@@ -11088,7 +11165,7 @@ var app = (function () {
     function toChromaList(rawColors, fallback) {
         if (!Array.isArray(rawColors) || !rawColors.length) return fallback;
         const parsed = rawColors
-            .map(normalizeHex)
+            .map(normalizeHex$1)
             .filter(Boolean)
             .map(color => {
                 try {
@@ -11099,6 +11176,10 @@ var app = (function () {
             })
             .filter(Boolean);
         return parsed.length ? parsed : fallback;
+    }
+
+    function canUseBezierScale$1(inputColors) {
+        return Array.isArray(inputColors) && inputColors.length > 1 && inputColors.length <= 5;
     }
 
     function goForward() {
@@ -11305,9 +11386,11 @@ var app = (function () {
 
         function handleApplyPalette(event) {
             const config = event && event.detail ? event.detail : {};
+            const nextMode =
+                config.mode === 'sequential' || config.mode === 'diverging' ? config.mode : mode;
 
-            if (config.mode === 'sequential' || config.mode === 'diverging') {
-                $$invalidate('mode', mode = config.mode);
+            if (nextMode !== mode) {
+                $$invalidate('mode', mode = nextMode);
             }
 
             const parsedNumColors = Math.round(+config.numColors);
@@ -11315,20 +11398,24 @@ var app = (function () {
                 $$invalidate('numColors', numColors = parsedNumColors);
             }
 
-            if (typeof config.bezier === 'boolean') {
-                $$invalidate('bezier', bezier = config.bezier);
-            }
             if (typeof config.correctLightness === 'boolean') {
                 $$invalidate('correctLightness', correctLightness = config.correctLightness);
             }
 
-            $$invalidate('colors', colors = toChromaList(config.colors, colors));
+            const nextColors = toChromaList(config.colors, colors);
+            const nextColors2 =
+                nextMode === 'diverging'
+                    ? toChromaList(config.colors2, colors2.length ? colors2 : nextColors.slice(0).reverse())
+                    : [];
+            const requestedBezier = typeof config.bezier === 'boolean' ? config.bezier : bezier;
 
-            if (mode === 'diverging') {
-                $$invalidate('colors2', colors2 = toChromaList(config.colors2, colors2.length ? colors2 : colors.slice(0).reverse()));
-            } else {
-                $$invalidate('colors2', colors2 = []);
-            }
+            $$invalidate('colors', colors = nextColors);
+            $$invalidate('bezier', bezier =
+                requestedBezier &&
+                canUseBezierScale$1(nextColors) &&
+                (nextMode !== 'diverging' || canUseBezierScale$1(nextColors2)));
+
+            $$invalidate('colors2', colors2 = nextColors2);
         }
 
         function goBack() {
@@ -11427,7 +11514,9 @@ var app = (function () {
     		$$invalidate('numColors', numColors);
     	}
 
-    	$$self.$$.update = ($$dirty = { step3ToolbarEl: 1, steps: 1, simulate: 1, numColors: 1 }) => {
+    	let currentPaletteForAI;
+
+    	$$self.$$.update = ($$dirty = { step3ToolbarEl: 1, steps: 1, simulate: 1, numColors: 1, mode: 1, colors: 1, colors2: 1, bezier: 1, correctLightness: 1 }) => {
     		if ($$dirty.step3ToolbarEl || $$dirty.steps || $$dirty.simulate) { if (step3ToolbarEl) {
                     void steps.length;
                     tick().then(measureStep3ToolbarStacked);
@@ -11438,6 +11527,14 @@ var app = (function () {
                         $$invalidate('numColors', numColors = clamped);
                     }
                 } }
+    		if ($$dirty.mode || $$dirty.numColors || $$dirty.colors || $$dirty.colors2 || $$dirty.bezier || $$dirty.correctLightness) { $$invalidate('currentPaletteForAI', currentPaletteForAI = {
+                    mode,
+                    numColors,
+                    colors: colors.map(color => color.hex()),
+                    colors2: colors2.map(color => color.hex()),
+                    bezier,
+                    correctLightness
+                }); }
     	};
 
     	return {
@@ -11457,6 +11554,7 @@ var app = (function () {
     		onPopState,
     		handleApplyPalette,
     		goBack,
+    		currentPaletteForAI,
     		buttongroup_value_binding,
     		input_input_handler,
     		input_handler,
@@ -11578,6 +11676,7 @@ var app = (function () {
       }
       document.head.appendChild(script);
     }
+    //# sourceMappingURL=index.mjs.map
 
     inject();
 

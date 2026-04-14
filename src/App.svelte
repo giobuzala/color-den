@@ -260,11 +260,17 @@
         return parsed.length ? parsed : fallback;
     }
 
+    function canUseBezierScale(inputColors) {
+        return Array.isArray(inputColors) && inputColors.length > 1 && inputColors.length <= 5;
+    }
+
     function handleApplyPalette(event) {
         const config = event && event.detail ? event.detail : {};
+        const nextMode =
+            config.mode === 'sequential' || config.mode === 'diverging' ? config.mode : mode;
 
-        if (config.mode === 'sequential' || config.mode === 'diverging') {
-            mode = config.mode;
+        if (nextMode !== mode) {
+            mode = nextMode;
         }
 
         const parsedNumColors = Math.round(+config.numColors);
@@ -272,20 +278,24 @@
             numColors = parsedNumColors;
         }
 
-        if (typeof config.bezier === 'boolean') {
-            bezier = config.bezier;
-        }
         if (typeof config.correctLightness === 'boolean') {
             correctLightness = config.correctLightness;
         }
 
-        colors = toChromaList(config.colors, colors);
+        const nextColors = toChromaList(config.colors, colors);
+        const nextColors2 =
+            nextMode === 'diverging'
+                ? toChromaList(config.colors2, colors2.length ? colors2 : nextColors.slice(0).reverse())
+                : [];
+        const requestedBezier = typeof config.bezier === 'boolean' ? config.bezier : bezier;
 
-        if (mode === 'diverging') {
-            colors2 = toChromaList(config.colors2, colors2.length ? colors2 : colors.slice(0).reverse());
-        } else {
-            colors2 = [];
-        }
+        colors = nextColors;
+        bezier =
+            requestedBezier &&
+            canUseBezierScale(nextColors) &&
+            (nextMode !== 'diverging' || canUseBezierScale(nextColors2));
+
+        colors2 = nextColors2;
     }
 
     function goBack() {
@@ -296,6 +306,15 @@
     function goForward() {
         history.forward();
     }
+
+    $: currentPaletteForAI = {
+        mode,
+        numColors,
+        colors: colors.map(color => color.hex()),
+        colors2: colors2.map(color => color.hex()),
+        bezier,
+        correctLightness
+    };
 </script>
 
 <style>
@@ -575,4 +594,4 @@
     </div>
 </div>
 
-<AIChatbot on:applyPalette={handleApplyPalette} />
+<AIChatbot currentPalette={currentPaletteForAI} on:applyPalette={handleApplyPalette} />

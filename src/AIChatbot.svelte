@@ -4,6 +4,8 @@
 
     const dispatch = createEventDispatcher();
 
+    export let currentPalette = null;
+
     let isOpen = false;
     let message = '';
     let loading = false;
@@ -16,9 +18,22 @@
                 'I am a color palette assistant here to help you build palettes. Try something like: "Create a calm diverging palette with 5 colors."'
         }
     ];
+    let apiMessages = [];
 
     function buildSystemPrompt() {
-        return agentInstructions;
+        const paletteContext = currentPalette
+            ? JSON.stringify(currentPalette, null, 2)
+            : '{"status":"unavailable"}';
+        return `${agentInstructions}
+
+---
+
+## CURRENT PALETTE STATE
+
+The user's current palette configuration in the app right now is:
+${paletteContext}
+
+When the user asks for a refinement like "make it darker", "more muted", or "keep this but...", modify this current palette state instead of inventing a new unrelated palette.`;
     }
 
     function describeAppliedConfig(config) {
@@ -60,23 +75,50 @@
         }
     }
 
+    function normalizeHex(rawColor) {
+        if (typeof rawColor !== 'string') return null;
+        const trimmed = rawColor.trim();
+        if (!trimmed) return null;
+        return (trimmed[0] === '#' ? trimmed : `#${trimmed}`).toLowerCase();
+    }
+
+    function normalizeConfig(config) {
+        if (!config || typeof config !== 'object') return null;
+        return {
+            mode: config.mode === 'diverging' ? 'diverging' : 'sequential',
+            numColors: Math.max(2, Math.round(+config.numColors || 0)),
+            colors: Array.isArray(config.colors) ? config.colors.map(normalizeHex).filter(Boolean) : [],
+            colors2: Array.isArray(config.colors2) ? config.colors2.map(normalizeHex).filter(Boolean) : [],
+            bezier: Boolean(config.bezier),
+            correctLightness: Boolean(config.correctLightness)
+        };
+    }
+
+    function configsMatch(a, b) {
+        const left = normalizeConfig(a);
+        const right = normalizeConfig(b);
+        if (!left || !right) return false;
+        return JSON.stringify(left) === JSON.stringify(right);
+    }
+
     async function sendMessage() {
         const prompt = message.trim();
         if (!prompt || loading) return;
 
         error = '';
-        messages = [...messages, { role: 'user', content: prompt }];
+        const userMessage = { role: 'user', content: prompt };
+        messages = [...messages, userMessage];
+        apiMessages = [...apiMessages, userMessage];
         message = '';
 
         loading = true;
         try {
             const promptForModel = buildSystemPrompt();
-            const conversation = messages.filter(m => m.role === 'user' || m.role === 'assistant');
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    messages: conversation,
+                    messages: apiMessages,
                     systemPrompt: promptForModel
                 })
             });
@@ -91,14 +133,19 @@
 
             const result = extractPaletteConfig(content);
             if (result) {
+                const unchanged = configsMatch(result.config, currentPalette);
                 dispatch('applyPalette', result.config);
                 const reply =
-                    result.conversational && result.conversational.length > 0
+                    unchanged
+                        ? 'That response kept the same palette settings, so nothing visible changed. Try asking for a stronger or more specific adjustment.'
+                        : result.conversational && result.conversational.length > 0
                         ? result.conversational
                         : describeAppliedConfig(result.config);
                 messages = [...messages, { role: 'assistant', content: reply }];
+                apiMessages = [...apiMessages, { role: 'assistant', content }];
             } else {
                 messages = [...messages, { role: 'assistant', content: content || 'I could not generate a response.' }];
+                apiMessages = [...apiMessages, { role: 'assistant', content: content || 'I could not generate a response.' }];
             }
         } catch (e) {
             error = (e && e.message) || 'Request failed.';

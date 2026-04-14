@@ -13,6 +13,11 @@
     export let simulate = 'none';
     export let steps;
 
+    function canUseBezierScale(inputColors) {
+        // chroma.bezier only supports 2-5 control colors; fall back to linear beyond that.
+        return Array.isArray(inputColors) && inputColors.length > 1 && inputColors.length <= 5;
+    }
+
     $: even = numColors % 2 === 0;
 
     $: numColorsLeft = diverging ? Math.ceil(numColors / 2) + (even ? 1 : 0) : numColors;
@@ -23,14 +28,14 @@
 
     $: stepsLeft = colors.length
         ? chroma
-              .scale(bezier && colors.length > 1 ? chroma.bezier(genColors) : genColors)
+              .scale(bezier && canUseBezierScale(colors) ? chroma.bezier(genColors) : genColors)
               .correctLightness(correctLightness)
               .colors(numColorsLeft)
         : [];
 
     $: stepsRight = diverging && colors2.length
         ? chroma
-              .scale(bezier && colors2.length > 1 ? chroma.bezier(genColors2) : genColors2)
+              .scale(bezier && canUseBezierScale(colors2) ? chroma.bezier(genColors2) : genColors2)
               .correctLightness(correctLightness)
               .colors(numColorsRight)
         : [];
