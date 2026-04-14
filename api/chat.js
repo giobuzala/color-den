@@ -38,7 +38,9 @@ export default {
         const { messages, systemPrompt } = body || {};
         if (!Array.isArray(messages) || !systemPrompt) {
             return new Response(
-                JSON.stringify({ error: 'Body must include messages (array) and systemPrompt (string).' }),
+                JSON.stringify({
+                    error: 'Body must include messages (array) and systemPrompt (string).'
+                }),
                 { status: 400, headers: { 'Content-Type': 'application/json' } }
             );
         }
@@ -56,6 +58,25 @@ export default {
             ]
         };
 
+        async function readUpstreamBody(response) {
+            const contentType = response.headers.get('content-type') || '';
+            const raw = await response.text();
+
+            if (!raw) {
+                return { data: null, text: '' };
+            }
+
+            if (contentType.includes('application/json')) {
+                try {
+                    return { data: JSON.parse(raw), text: raw };
+                } catch (e) {
+                    // Fall back to plain text when the upstream claims JSON but sends malformed content.
+                }
+            }
+
+            return { data: null, text: raw };
+        }
+
         try {
             const res = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -66,12 +87,17 @@ export default {
                 body: JSON.stringify(payload)
             });
 
-            const data = await res.json();
+            const { data, text } = await readUpstreamBody(res);
             if (!res.ok) {
-                return new Response(
-                    JSON.stringify({ error: data?.error?.message || `OpenAI error (${res.status})` }),
-                    { status: res.status, headers: { 'Content-Type': 'application/json' } }
-                );
+                const upstreamMessage =
+                    data?.error?.message || (text && text.trim()) || `OpenAI error (${res.status})`;
+                const errorMessage = data?.error?.message
+                    ? upstreamMessage
+                    : `OpenAI upstream unavailable (${res.status}).`;
+                return new Response(JSON.stringify({ error: errorMessage }), {
+                    status: res.status,
+                    headers: { 'Content-Type': 'application/json' }
+                });
             }
 
             const content =
@@ -81,10 +107,10 @@ export default {
                 headers: { 'Content-Type': 'application/json' }
             });
         } catch (e) {
-            return new Response(
-                JSON.stringify({ error: e?.message || 'Request failed.' }),
-                { status: 500, headers: { 'Content-Type': 'application/json' } }
-            );
+            return new Response(JSON.stringify({ error: e?.message || 'Request failed.' }), {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' }
+            });
         }
     }
 };

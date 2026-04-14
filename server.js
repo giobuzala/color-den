@@ -11,6 +11,25 @@ require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 const DOCS = path.join(__dirname, 'docs');
 
+async function readUpstreamBody(response) {
+    const contentType = response.headers.get('content-type') || '';
+    const raw = await response.text();
+
+    if (!raw) {
+        return { data: null, text: '' };
+    }
+
+    if (contentType.includes('application/json')) {
+        try {
+            return { data: JSON.parse(raw), text: raw };
+        } catch (e) {
+            // Fall back to plain text when the upstream claims JSON but sends malformed content.
+        }
+    }
+
+    return { data: null, text: raw };
+}
+
 function serveStatic(filePath, res) {
     const ext = path.extname(filePath);
     const types = {
@@ -78,11 +97,18 @@ async function handleApiChat(body, res) {
             },
             body: JSON.stringify(payload)
         });
-        const data = await response.json();
+        const { data, text } = await readUpstreamBody(response);
 
         if (!response.ok) {
             res.writeHead(response.status, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: data?.error?.message || 'OpenAI error' }));
+            const upstreamMessage =
+                data?.error?.message ||
+                (text && text.trim()) ||
+                `OpenAI error (${response.status})`;
+            const errorMessage = data?.error?.message
+                ? upstreamMessage
+                : `OpenAI upstream unavailable (${response.status}).`;
+            res.end(JSON.stringify({ error: errorMessage }));
             return;
         }
 
@@ -111,7 +137,13 @@ const server = http.createServer((req, res) => {
         res.end();
         return;
     }
-    const filePath = path.join(DOCS, url.replace(/^\//, '').split('/').join(path.sep));
+    const filePath = path.join(
+        DOCS,
+        url
+            .replace(/^\//, '')
+            .split('/')
+            .join(path.sep)
+    );
     serveStatic(filePath, res);
 });
 
